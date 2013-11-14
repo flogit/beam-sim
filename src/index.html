@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link type="text/css" href="style.css" rel="stylesheet">
+        <script type="text/javascript" src="Vector2D.js"></script>
+        <script type="text/javascript" src="misc.js"></script>
+        <script type="text/javascript" src="math.js"></script>
+        <script type="text/javascript" src="debug.js"></script>
+        <script type="text/javascript" src="collision.js"></script>
+        <script type="text/javascript" src="draw.js"></script>
+
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="event.js"></script>
+
+        <script type="text/javascript" src="Beam.js"></script>
+        <script type="text/javascript" src="Item.js"></script>
+        <script type="text/javascript" src="Laser.js"></script>
+        <script type="text/javascript" src="Mirror.js"></script>
+        <script type="text/javascript" src="Glass.js"></script>
+        <script type="text/javascript" src="Circle.js"></script>
+        <script type="text/javascript" src="Polygon.js"></script>
+
+        <script type="text/javascript" src="Utest.js"></script>
+        <title>Simulation de Rayons Lumineux BeamSim</title>
+    </head>
+    <body onload="onLoad();">
+        <div id="outer">
+            <div id="inner">
+                <h2>Simulation de Rayons Lumineux : <i>BeamSim</i></h2>
+                <canvas id="canvas">
+                    Votre navigateur ne semble pas supporter l'élément HTML5 canvas</code>.
+                </canvas>
+                <div id="canvas_config">
+                <p>
+                <form name="form" action="#">
+                <input type="radio" name="bg" value="black" checked="checked" onclick="setBeamColor(255, 255, 0)" />Black background&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+                <input type="submit" value="clear" onclick="clearDrawingArea()">&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+                <input type="radio" name="bg" value="white" onclick="setBeamColor(0, 0, 0)" />White background
+                </p>
+                </div>
+                <div id="info">
+                <h3>Qu'est-ce que <i>BeamSim</i> ?</h3>
+                <p><i>BeamSim</i> est une petite application ludique permettant de simuler des rayons lumineux parcourant un espace. Un ou des objets opaques ou transparents peuvent être placés dans la scène afin d'étudier les déviations des rayons.
+                <h3>Comment ça marche ?</h3>
+                <p>Vous glissez simplement l'un des objets qui se situent en bas de l'application sur la fenêtre de travail. Vous pouvez également cliquer sur cet objet pour le placer directement au centre. Lorsque qu'une croix s'affiche en haut à gauche, vous pouvez redimensionner l'objet à l'aide de la roulette de la souris. Si vous cliquez à nouveau sur l'objet, c'est l'outil de rotation qui est sélectionné (soit à l'aide de la roulette, soit avec les flèches du clavier).</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

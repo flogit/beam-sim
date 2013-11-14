@@ -1,0 +1,41 @@
+body {
+    background-color: #EEEEF4;
+    color: #222222;
+    font-family: 'Trebuchet MS',Helvetica,sans-serif;
+}
+
+h2 {
+    text-align: center;
+}
+
+#outer {
+    width: 100%;
+    text-align: center;
+}
+
+#inner {
+    display: inline-block;
+
+    background-color: #EEEEF4;
+    padding: 15px;
+    #text-align: center;
+    text-align: left;
+    border: 20px solid #CCCCF4;
+}
+
+#canvas_config {
+    text-align: center;
+}
+
+#info
+{
+    /*width: setted by javascript !*/
+    text-align: justify;
+}
+
+canvas{
+    outline: 0;
+    border: 1px solid #000;
+    margin: 5px;
+    background-color: #FFF;
+}

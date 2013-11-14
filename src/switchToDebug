@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sed -i "s/  \/\/DEBUG/  DEBUG/g" *.js
+
+sed -i "s/  \/\/console/  console/g" *.js

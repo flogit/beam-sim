@@ -1,0 +1,6 @@
+ Features :
+ - Add side bar on the right to expose some properties of items (color, size...)
+
+ Code :
+ - Improve scope of variable adding closure
+ - Add methods of Object instead classical functions
