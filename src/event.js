@@ -22,7 +22,7 @@ function onMouseDown(inRawEvent)
     var nbItems = gItems.length;
 
     var item;
-    for (var i = 0; i < nbItems && typeof gSelectedItemIdx == 'undefined'; i++)
+    for (var i = nbItems - 1; i >= 0 && typeof gSelectedItemIdx == 'undefined'; i--)
     {
         item = gItems[i];
 
