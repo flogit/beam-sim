@@ -1,0 +1,4 @@
+#!/bin/bash
+
+find . -name "*.js" -exec sed -i "s/  \/\/DEBUG/  DEBUG/g" {} \;
+find . -name "*.js" -exec sed -i "s/  \/\/console/  console/g" {} \;
