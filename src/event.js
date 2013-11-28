@@ -8,10 +8,10 @@ var gOldSelectedItemIdx;
 ////////////////////////////////////////////////////////////////////////
 function onMouseDown(inRawEvent)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var evt = window.event || inRawEvent; //equalize event object
-    //DEBUGAssertIsValid(evt);
+    DEBUGAssertIsValid(evt);
 
     gEventMouseDown = true;
     gOldSelectedItemIdx = gSelectedItemIdx;
@@ -54,7 +54,7 @@ function onMouseDown(inRawEvent)
             extendedCircle.translate(launcherItem.shape.center);
             if (collisionVertexCircle(mousePos, extendedCircle))
             {
-                //console.log("Launching the item " + launcherItem.name)
+                console.log("Launching the item " + launcherItem.name)
 
                 switch (launcherItem.name)
                 {
@@ -79,7 +79,7 @@ function onMouseDown(inRawEvent)
                         break;
 
                     default :
-                        //console.error("Launcher item " + name + " not known");
+                        console.error("Launcher item " + name + " not known");
                 }
 
                 if (newItem.canRotate())
@@ -112,12 +112,12 @@ function onMouseDown(inRawEvent)
 ////////////////////////////////////////////////////////////////////////
 function onMouseMove(inRawEvent)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     setTimeout(function() { // To avoid laggy firefox browser on onmousemove :/
 
         var evt = window.event || inRawEvent; //equalize event object
-        //DEBUGAssertIsValid(evt);
+        DEBUGAssertIsValid(evt);
 
         if (gEventMouseDown && typeof gSelectedItemIdx != 'undefined')
         {
@@ -216,10 +216,10 @@ function onMouseUp()
 ////////////////////////////////////////////////////////////////////////
 function onMouseWheel(inRawEvent)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var evt = window.event || inRawEvent; //equalize event object
-    //DEBUGAssertIsValid(evt);
+    DEBUGAssertIsValid(evt);
 
     var delta = evt.detail ? evt.detail*(-120) : evt.wheelDelta //check for detail first so Opera uses that instead of wheelDelta
 
@@ -255,7 +255,7 @@ function onMouseWheel(inRawEvent)
         }
         else
         {
-            //console.error("Mode of selected item not known");
+            console.error("Mode of selected item not known");
         }
 
         mainDraw();
@@ -275,12 +275,12 @@ function onMouseWheel(inRawEvent)
 ////////////////////////////////////////////////////////////////////////
 function onKeyDown(inRawEvent)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var evt = window.event || inRawEvent; //equalize event object
-    //DEBUGAssertIsValid(evt);
+    DEBUGAssertIsValid(evt);
 
-    //console.log("On key down with keyCode " + evt.keyCode);
+    console.log("On key down with keyCode " + evt.keyCode);
 
     if (typeof gSelectedItemIdx != 'undefined')
     {
@@ -348,7 +348,7 @@ function onKeyDown(inRawEvent)
         }
         else
         {
-            //console.error("Mode of selected item not known");
+            console.error("Mode of selected item not known");
         }
     }
 }

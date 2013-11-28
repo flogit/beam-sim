@@ -11,7 +11,7 @@ function Item()
 ///////////////////////////////////////////////////////////////
 Item.prototype.init = function(inName, inWidth, inHeight)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 3);
+    DEBUGCheckArgumentsAreValids(arguments, 3);
 
     this.angle               = 0;
     this.width               = inWidth;
@@ -84,7 +84,7 @@ Item.prototype.getName = function()
 ///////////////////////////////////////////////////////////////
 Item.prototype.translate = function(inOffset)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.shape.translate(inOffset);
 }
@@ -93,7 +93,7 @@ Item.prototype.translate = function(inOffset)
 ///////////////////////////////////////////////////////////////
 Item.prototype.moveTo = function(inNewPosition)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.shape.translate(inNewPosition.sub(this.shape.center));
 }
@@ -109,8 +109,8 @@ Item.prototype.canRotate = function()
 ///////////////////////////////////////////////////////////////
 Item.prototype.rotate = function(inAngle)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
-    //console.assert(this.canRotate(), "Try to rotate item that can not rotate");
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+    console.assert(this.canRotate(), "Try to rotate item that can not rotate");
 
     this.angle += inAngle;
 
@@ -124,7 +124,7 @@ Item.prototype.rotate = function(inAngle)
 ///////////////////////////////////////////////////////////////
 Item.prototype.scale = function(inRatio)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var ratioMulRadius = inRatio * this.shape.radius;
 

@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function Beam(outBeams, inBeamStart, inBeamDirection, inRefractiveIndex, inSize)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 5);
+    DEBUGCheckArgumentsAreValids(arguments, 5);
 
     if (outBeams.length > 50)
     {
@@ -41,9 +41,9 @@ function Beam(outBeams, inBeamStart, inBeamDirection, inRefractiveIndex, inSize)
                 normal = subResult['n'];
                 collidedItemIdx = i;
 
-                //DEBUGAssertIsValid(max_d);
-                //DEBUGAssertIsValid(this.end);
-                //DEBUGAssertIsValid(normal);
+                DEBUGAssertIsValid(max_d);
+                DEBUGAssertIsValid(this.end);
+                DEBUGAssertIsValid(normal);
             }
         }
     }
@@ -71,7 +71,7 @@ function Beam(outBeams, inBeamStart, inBeamDirection, inRefractiveIndex, inSize)
         }
     }
 
-    //DEBUGAssertIsValid(this.end);
+    DEBUGAssertIsValid(this.end);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ Beam.prototype.draw = function()
 {
     if (typeof this.end !== 'undefined')
     {
-        //console.log("Draw beams from " + this.start + " to " + this.end + " with refractive index " + this.refractiveIndex);
+        console.log("Draw beams from " + this.start + " to " + this.end + " with refractive index " + this.refractiveIndex);
 
         gCtx.save();
         {
@@ -99,6 +99,6 @@ Beam.prototype.draw = function()
     }
     else
     {
-        //console.log("No Draw of invalid beams");
+        console.log("No Draw of invalid beams");
     }
 }

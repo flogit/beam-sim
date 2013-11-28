@@ -3,9 +3,9 @@
 ///////////////////////////////////////////////////////////////
 function Polygon(inVertices)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
-    //console.assert(inVertices.length >= 3);
+    console.assert(inVertices.length >= 3);
 
     this.type = "polygon";
     this.vertices = inVertices;
@@ -50,7 +50,7 @@ Polygon.prototype.draw = function()
 ///////////////////////////////////////////////////////////////
 Polygon.prototype.rotate = function(inAngle, inPosition)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     var nbVertices = this.vertices.length;
     var vertex = undefined;
@@ -64,7 +64,7 @@ Polygon.prototype.rotate = function(inAngle, inPosition)
 ///////////////////////////////////////////////////////////////
 Polygon.prototype.translate = function(inOffset)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var nbVertices = this.vertices.length;
     var vertex = undefined;
@@ -80,7 +80,7 @@ Polygon.prototype.translate = function(inOffset)
 ///////////////////////////////////////////////////////////////
 Polygon.prototype.scale = function(inRatio)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var nbVertices = this.vertices.length;
 

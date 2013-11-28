@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////
 function Vector2D(x, y)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     this.x = x;
     this.y = y;
@@ -12,7 +12,7 @@ function Vector2D(x, y)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.assign = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.x = that.x;
     this.y = that.y;
@@ -36,7 +36,7 @@ Vector2D.prototype.normSq = function()
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.dot = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return (this.x * that.x) + (this.y * that.y);
 };
@@ -45,7 +45,7 @@ Vector2D.prototype.dot = function(that)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.cross = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return (this.x * that.y) - (this.y * that.x);
 }
@@ -70,7 +70,7 @@ Vector2D.prototype.normalizeInline = function()
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.add = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return new Vector2D(this.x + that.x, this.y + that.y);
 };
@@ -79,7 +79,7 @@ Vector2D.prototype.add = function(that)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.addInline = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.x += that.x;
     this.y += that.y;
@@ -91,7 +91,7 @@ Vector2D.prototype.addInline = function(that)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.sub = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return new Vector2D(this.x - that.x, this.y - that.y);
 };
@@ -110,7 +110,7 @@ Vector2D.prototype.subInline = function(that)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.multiply = function(scalar)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return new Vector2D(this.x * scalar, this.y * scalar);
 };
@@ -119,7 +119,7 @@ Vector2D.prototype.multiply = function(scalar)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.multiplyInline = function(scalar)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.x *= scalar;
     this.y *= scalar;
@@ -131,7 +131,7 @@ Vector2D.prototype.multiplyInline = function(scalar)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.divide = function(scalar)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return new Vector2D(this.x / scalar, this.y / scalar);
 };
@@ -140,7 +140,7 @@ Vector2D.prototype.divide = function(scalar)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.divideInline = function(scalar)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.x /= scalar;
     this.y /= scalar;
@@ -152,7 +152,7 @@ Vector2D.prototype.divideInline = function(scalar)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.rotate = function(inAngle, inCenter)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 1);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 1);
 
     if (typeof inCenter != 'undefined')
     {
@@ -183,7 +183,7 @@ Vector2D.prototype.rotate = function(inAngle, inCenter)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.rotateInline = function(inAngle, inCenter)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 1);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 1);
 
     if (typeof inCenter != 'undefined')
     {
@@ -212,7 +212,7 @@ Vector2D.prototype.rotateInline = function(inAngle, inCenter)
 ///////////////////////////////////////////////////////////////
 Vector2D.prototype.equal = function(that)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     return floatEqual(this.x, that.x) && floatEqual(this.y, that.y);
 };

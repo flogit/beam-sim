@@ -23,7 +23,7 @@ Laser.prototype = new Item;
 ///////////////////////////////////////////////////////////////
 Laser.prototype.generateBeams = function(outBeams)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     if (this.movingInLauncherBar)
     {
@@ -53,7 +53,7 @@ Laser.prototype.generateBeams = function(outBeams)
 ///////////////////////////////////////////////////////////////
 Laser.prototype.draw = function()
 {
-    //console.log("Draw " + this.toString());
+    console.log("Draw " + this.toString());
 
     gCtx.save();
     gCtx.translate(this.shape.center.x, this.shape.center.y);

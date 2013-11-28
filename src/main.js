@@ -36,7 +36,7 @@ var gLauncherAreaPolygon;
 ////////////////////////////////////////////////////////////////////////
 function createContext(inCanvas)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var ctx;
 
@@ -48,11 +48,11 @@ function createContext(inCanvas)
 
     if (ctx)
     {
-        //console.log("2D Context created");
+        console.log("2D Context created");
     }
     else
     {
-        //console.error("Fail to get the 2D context from the HTML5 canvas");
+        console.error("Fail to get the 2D context from the HTML5 canvas");
     }
 
     return ctx;
@@ -62,13 +62,13 @@ function createContext(inCanvas)
 ////////////////////////////////////////////////////////////////////////
 function mainDraw()
 {
-    //console.time("[mainDraw]");
+    console.time("[mainDraw]");
 
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
 
     var nbItems = gItems.length;
 
-    //console.group("Beams generations:");
+    console.group("Beams generations:");
     {
         var beams = new Array();
         for (var i = 0; i < nbItems; i++)
@@ -79,9 +79,9 @@ function mainDraw()
             }
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group("Drawing " + nbItems + " non transparent items:");
+    console.group("Drawing " + nbItems + " non transparent items:");
     {
         for (var i = 0; i < nbItems; i++)
         {
@@ -91,9 +91,9 @@ function mainDraw()
             }
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group("Drawing " + nbItems + " transparent items:");
+    console.group("Drawing " + nbItems + " transparent items:");
     {
         for (var i = 0; i < nbItems; i++)
         {
@@ -103,9 +103,9 @@ function mainDraw()
             }
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group("Drawing " + beams.length + " beams:");
+    console.group("Drawing " + beams.length + " beams:");
     {
         var nbBeams = beams.length;
         for (var i = 0; i < nbBeams; i++)
@@ -113,19 +113,19 @@ function mainDraw()
             beams[i].draw();
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
     var nbLauncherItems = gLauncherItems.length;
-    //console.group("Drawing " + nbLauncherItems + " launcher items:");
+    console.group("Drawing " + nbLauncherItems + " launcher items:");
     {
         for (var i = 0; i < nbLauncherItems; i++)
         {
             gLauncherItems[i].draw();
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group("Drawing icons:");
+    console.group("Drawing icons:");
     {
         if (typeof gSelectedItemIdx != 'undefined')
         {
@@ -139,11 +139,11 @@ function mainDraw()
             }
             else
             {
-                //console.error("Mode of selected item not known");
+                console.error("Mode of selected item not known");
             }
         }
     }
-    //console.groupEnd();
+    console.groupEnd();
 
     gCtx.save();
     gCtx.beginPath();
@@ -158,36 +158,50 @@ function mainDraw()
     gCtx.stroke();
     gCtx.restore();
 
-    //console.timeEnd("[mainDraw]");
+    console.timeEnd("[mainDraw]");
 }
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-function onLoad()
+function onLoad(in_raw)
 {
-    var width = getWidth() - 120;
-    var realHeight = getHeight()
+    var width;
+    var height;
 
-    width = Math.min(width, 800);
-
-    var height = width; // Try square canvas
-
-    if (height > realHeight - 200)
+    if (!in_raw)
     {
-        height = realHeight - 200;
-    }
+        width = getWidth() - 120;
+        var realHeight = getHeight()
 
-    width = Math.max(width, 300);
-    height = Math.max(height, 300);
+        width = Math.min(width, 800);
+
+        height = width; // Try square canvas
+
+        if (height > realHeight - 200)
+        {
+            height = realHeight - 200;
+        }
+
+        width = Math.max(width, 300);
+        height = Math.max(height, 300);
+    }
+    else
+    {
+        width = getWidth() * 0.95;
+        height = getHeight() * 0.95 - 80;
+    }
 
     var launcherBarSize = 100;
 
-    gCanvas = document.getElementById('canvas'),
+    gCanvas = document.getElementById('canvas');
     gCanvas.width = width;
     gCanvas.height = height;
 
-    gInfoDiv = document.getElementById('info'),
-    gInfoDiv.style.width = width;
+    gInfoDiv = document.getElementById('info');
+    if (gInfoDiv)
+    {
+        gInfoDiv.style.width = width;
+    }
 
     //return new Utest();
 
@@ -287,7 +301,7 @@ function onLoad()
 ////////////////////////////////////////////////////////////////////////
 function setBeamColor(inR, inG, inB)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 3);
+    DEBUGCheckArgumentsAreValids(arguments, 3);
 
     gBeamColor = "rgb(" + inR + ", " + inG + ", " + inB + ")";
 

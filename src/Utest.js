@@ -3,16 +3,16 @@
 ///////////////////////////////////////////////////////////////
 function Utest()
 {
-    //console.log("Start unit test");
+    console.log("Start unit test");
 
-    //console.group(" > Class Vector2D");
+    console.group(" > Class Vector2D");
     {
         (function ()
         {
             var vector = new Vector2D(10, 0);
             vector.rotateInline(Math.PI / 2);
 
-            //console.assert(vector.equal(new Vector2D(0, 10)));
+            console.assert(vector.equal(new Vector2D(0, 10)));
         }) ();
 
         (function ()
@@ -20,37 +20,37 @@ function Utest()
             var vector = new Vector2D(0, -10);
             vector.rotateInline(Math.PI / 2);
 
-            //console.assert(vector.equal(new Vector2D(10, 0)));
+            console.assert(vector.equal(new Vector2D(10, 0)));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Vertex / Circle");
+    console.group(" > Collision Vertex / Circle");
     {
         (function ()
         {
             var vertex = new Vector2D(-1, -1);
             var circle = new Circle(1);
-            //console.assert(!collisionVertexCircle(vertex, circle));
+            console.assert(!collisionVertexCircle(vertex, circle));
         }) ();
 
         (function ()
         {
             var vertex = new Vector2D(-1, -1);
             var circle = new Circle(2);
-            //console.assert(collisionVertexCircle(vertex, circle));
+            console.assert(collisionVertexCircle(vertex, circle));
         }) ();
 
         (function ()
         {
             var vertex = new Vector2D(-2 + myMathEpsilon, 0);
             var circle = new Circle(2);
-            //console.assert(collisionVertexCircle(vertex, circle));
+            console.assert(collisionVertexCircle(vertex, circle));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Vertex / Polygon");
+    console.group(" > Collision Vertex / Polygon");
     {
         (function ()
         {
@@ -59,7 +59,7 @@ function Utest()
                                                 new Vector2D(0, 1),
                                                 new Vector2D(1, 1),
                                                 new Vector2D(1, 0)));
-            //console.assert(!collisionVertexPolygon(vertex, polygon));
+            console.assert(!collisionVertexPolygon(vertex, polygon));
         }) ();
 
         (function ()
@@ -69,7 +69,7 @@ function Utest()
                                                 new Vector2D(0, 1),
                                                 new Vector2D(1, 1),
                                                 new Vector2D(1, 0)));
-            //console.assert(collisionVertexPolygon(vertex, polygon));
+            console.assert(collisionVertexPolygon(vertex, polygon));
         }) ();
 
         (function ()
@@ -79,12 +79,12 @@ function Utest()
                                                 new Vector2D(0, 1),
                                                 new Vector2D(1, 1),
                                                 new Vector2D(1, 0)));
-            //console.assert(collisionVertexPolygon(vertex, polygon));
+            console.assert(collisionVertexPolygon(vertex, polygon));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Line / Line");
+    console.group(" > Collision Line / Line");
     {
         (function ()
         {
@@ -93,7 +93,7 @@ function Utest()
             var l2_v1 = new Vector2D(-1,  1);
             var l2_v2 = new Vector2D( 1,  1);
 
-            //console.assert(!collisionLineLine(l1_v1, l1_v2, l2_v1, l2_v2));
+            console.assert(!collisionLineLine(l1_v1, l1_v2, l2_v1, l2_v2));
         }) ();
 
         (function ()
@@ -106,12 +106,12 @@ function Utest()
             var subResult = new Array();
             var isCollision = collisionLineLine(l1_v1, l1_v2, l2_v1, l2_v2, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(2, 0)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(2, 0)));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Ray / Segment");
+    console.group(" > Collision Ray / Segment");
     {
         (function ()
         {
@@ -121,7 +121,7 @@ function Utest()
             var s_v1 = new Vector2D( 2, -1);
             var s_v2 = new Vector2D( 2,  1);
 
-            //console.assert(!collisionRaySegment(r_v, r_d, s_v1, s_v2));
+            console.assert(!collisionRaySegment(r_v, r_d, s_v1, s_v2));
         }) ();
 
         (function ()
@@ -135,12 +135,12 @@ function Utest()
             var subResult = new Array();
             var isCollision = collisionRaySegment(r_v, r_d, s_v1, s_v2, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(0.5, 0.1)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(0.5, 0.1)));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Segment / Segment");
+    console.group(" > Collision Segment / Segment");
     {
         (function ()
         {
@@ -150,7 +150,7 @@ function Utest()
             var s2_v1 = new Vector2D( 2, -1);
             var s2_v2 = new Vector2D( 2,  1);
 
-            //console.assert(!collisionSegmentSegment(s1_v1, s1_v2, s2_v1, s2_v2));
+            console.assert(!collisionSegmentSegment(s1_v1, s1_v2, s2_v1, s2_v2));
         }) ();
 
         (function ()
@@ -164,12 +164,12 @@ function Utest()
             var subResult = new Array();
             var isCollision = collisionSegmentSegment(s1_v1, s1_v2, s2_v1, s2_v2, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(0.5, 0.1)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(0.5, 0.1)));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Ray / Polygon");
+    console.group(" > Collision Ray / Polygon");
     {
         (function ()
         {
@@ -180,8 +180,8 @@ function Utest()
                                           new Vector2D(1, 1),
                                           new Vector2D(1, 0)));
 
-            //console.assert(!collisionRayPolygon(r_v, r_d, p));
-            //console.assert(!collisionRayShape(r_v, r_d, p));
+            console.assert(!collisionRayPolygon(r_v, r_d, p));
+            console.assert(!collisionRayShape(r_v, r_d, p));
         }) ();
 
         (function ()
@@ -193,8 +193,8 @@ function Utest()
                                           new Vector2D(1, 1),
                                           new Vector2D(1, 0)));
 
-            //console.assert(!collisionRayPolygon(r_v, r_d, p));
-            //console.assert(!collisionRayShape(r_v, r_d, p));
+            console.assert(!collisionRayPolygon(r_v, r_d, p));
+            console.assert(!collisionRayShape(r_v, r_d, p));
         }) ();
 
         (function ()
@@ -206,17 +206,17 @@ function Utest()
                                           new Vector2D(1, 1),
                                           new Vector2D(1, 0)));
 
-            //console.assert(collisionRayPolygon(r_v, r_d, p));
+            console.assert(collisionRayPolygon(r_v, r_d, p));
 
             var subResult = new Array();
             var isCollision = collisionRayShape(r_v, r_d, p, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(0, 0.5)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(0, 0.5)));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
-    //console.group(" > Collision Ray / Circle");
+    console.group(" > Collision Ray / Circle");
     {
         (function ()
         {
@@ -224,8 +224,8 @@ function Utest()
             var r_d = new Vector2D(0, 1);
             var c = new Circle(1);
 
-            //console.assert(!collisionRayCircle(r_v, r_d, c));
-            //console.assert(!collisionRayShape(r_v, r_d, c));
+            console.assert(!collisionRayCircle(r_v, r_d, c));
+            console.assert(!collisionRayShape(r_v, r_d, c));
         }) ();
 
         (function ()
@@ -234,12 +234,12 @@ function Utest()
             var r_d = new Vector2D(0, 1);
             var c = new Circle(1);
 
-            //console.assert(collisionRayCircle(r_v, r_d, c));
+            console.assert(collisionRayCircle(r_v, r_d, c));
 
             var subResult = new Array();
             var isCollision = collisionRayShape(r_v, r_d, c, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(0, 1)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(0, 1)));
         }) ();
 
         (function ()
@@ -248,12 +248,12 @@ function Utest()
             var r_d = new Vector2D(1, 0);
             var c = new Circle(1);
 
-            //console.assert(collisionRayCircle(r_v, r_d, c));
+            console.assert(collisionRayCircle(r_v, r_d, c));
 
             var subResult = new Array();
             var isCollision = collisionRayShape(r_v, r_d, c, subResult);
 
-            //console.assert(isCollision && subResult['i'].equal(new Vector2D(-1, 0)));
+            console.assert(isCollision && subResult['i'].equal(new Vector2D(-1, 0)));
         }) ();
 
         (function ()
@@ -263,7 +263,7 @@ function Utest()
             var c = new Circle(1);
             c.translate(new Vector2D(0, 5.5));
 
-            //console.assert(collisionRayCircle(r_v, r_d, c));
+            console.assert(collisionRayCircle(r_v, r_d, c));
         }) ();
 
         (function ()
@@ -273,14 +273,14 @@ function Utest()
             var c = new Circle(1);
             c.translate(new Vector2D(0, 5.5));
 
-            //console.assert(!collisionRayCircle(r_v, r_d, c));
+            console.assert(!collisionRayCircle(r_v, r_d, c));
         }) ();
     }
-    //console.groupEnd();
+    console.groupEnd();
 
 
 
-    //console.log("End of unit test");
+    console.log("End of unit test");
 
     return true;
 }

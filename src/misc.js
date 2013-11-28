@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////
 function getRefractiveIndex(inVertex)
 {
-    //DEBUGCheckArgumentsAreValids(1);
+    DEBUGCheckArgumentsAreValids(1);
 
     var refractiveIndex;
 
@@ -41,7 +41,7 @@ function getRefractiveIndex(inVertex)
         refractiveIndex = gSpaceRefractiveIndex;
     }
 
-    //DEBUGAssertIsValid(refractiveIndex);
+    DEBUGAssertIsValid(refractiveIndex);
 
     return refractiveIndex;
 }
@@ -90,7 +90,7 @@ function getHeight()
 ///////////////////////////////////////////////////////////////
 function getPosition(event)
 {
-    var mousePos = new Vector2D();
+    var mousePos = new Vector2D(0, 0);
 
     if (event.x != undefined && event.y != undefined)
     {

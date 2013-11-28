@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function drawPolygonPath(inVertices)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     gCtx.beginPath();
     var nbVertices = inVertices.length;
@@ -27,7 +27,7 @@ function drawPolygonPath(inVertices)
 ///////////////////////////////////////////////////////////////
 function drawCirclePath(inCenter, inRadius)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     gCtx.beginPath();
     gCtx.arc(inCenter.x, inCenter.y, inRadius, 0, Math.PI * 2, true);

@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function Glass(inShapeType)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var radius = 20;
 
@@ -22,7 +22,7 @@ function Glass(inShapeType)
     }
     else
     {
-        //console.error("Shape " + inShapeType + " not known");
+        console.error("Shape " + inShapeType + " not known");
     }
 
     this.refractiveIndex = 2;
@@ -44,7 +44,7 @@ Glass.prototype.isTransparent = function()
 ///////////////////////////////////////////////////////////////
 Glass.prototype.draw = function()
 {
-    //console.log("Draw " + this.toString());
+    console.log("Draw " + this.toString());
 
     gCtx.save();
     if (this.movingInLauncherBar)
@@ -67,7 +67,7 @@ Glass.prototype.handleBeamCollision = function(outBeams,
                                                inInputRefractiveIndex1,
                                                inBeamSize)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 6);
+    DEBUGCheckArgumentsAreValids(arguments, 6);
 
     var costheta1 = inInputRayDirection.dot(inNormal);
     if (costheta1 < 0)

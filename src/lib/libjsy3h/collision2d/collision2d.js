@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function collisionVertexShape(inVertex, inShape)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     if (inShape.type == "polygon")
     {
@@ -15,7 +15,7 @@ function collisionVertexShape(inVertex, inShape)
     }
     else
     {
-        //console.error("Type " + inShape.type + " of shape not known");
+        console.error("Type " + inShape.type + " of shape not known");
         return false;
     }
 }
@@ -26,7 +26,7 @@ function collisionVertexShape(inVertex, inShape)
 ///////////////////////////////////////////////////////////////
 function collisionVertexPolygon(inVertex, inPolygon)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     var vectorPolygonCenterToVertex = inPolygon.center.sub(inVertex);
     if (vectorPolygonCenterToVertex.normSq() > inPolygon.radius * inPolygon.radius)
@@ -75,7 +75,7 @@ function collisionVertexPolygon(inVertex, inPolygon)
 ///////////////////////////////////////////////////////////////
 function collisionVertexCircle(inVertex, inCircle)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     var vectorPolygonCenterToVertex = inCircle.center.sub(inVertex);
     return vectorPolygonCenterToVertex.normSq() <= inCircle.radius * inCircle.radius;
@@ -85,7 +85,7 @@ function collisionVertexCircle(inVertex, inCircle)
 ///////////////////////////////////////////////////////////////
 function collisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 4);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 4);
 
     if (outSubResult)
     {
@@ -113,7 +113,7 @@ function collisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
 ///////////////////////////////////////////////////////////////
 function collisionSegmentSegment(inV1, inV2, inV3, inV4, outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 4);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 4);
 
     if (outSubResult)
     {
@@ -148,7 +148,7 @@ function collisionSegmentSegment(inV1, inV2, inV3, inV4, outSubResult)
 ///////////////////////////////////////////////////////////////
 function collisionRaySegment(inV1, inDirection, inV3, inV4, outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 4);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 4);
 
     if (outSubResult)
     {
@@ -186,7 +186,7 @@ function collisionRayShape(inV1,
                            inShape,
                            outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 3);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 3);
 
     if (outSubResult)
     {
@@ -203,7 +203,7 @@ function collisionRayShape(inV1,
     }
     else
     {
-        //console.error("Type " + inShape.type + " of shape not known");
+        console.error("Type " + inShape.type + " of shape not known");
         return false;
     }
 }
@@ -215,7 +215,7 @@ function collisionRayPolygon(inV1,
                              inPolygon,
                              outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 3);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 3);
 
     if (outSubResult)
     {
@@ -269,7 +269,7 @@ function collisionRayCircle(inRayStart,
                             inCircle,
                             outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 3);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 3);
 
     if (outSubResult)
     {
@@ -277,8 +277,8 @@ function collisionRayCircle(inRayStart,
         outSubResult['r'] = Number.MAX_VALUE;
     }
 
-    //DEBUGAssertIsValid(inCircle.center);
-    //DEBUGAssertIsValid(inCircle.radius);
+    DEBUGAssertIsValid(inCircle.center);
+    DEBUGAssertIsValid(inCircle.radius);
 
     var circlePosition = inCircle.center;
     var circleRadius = inCircle.radius;
@@ -343,7 +343,7 @@ function privateCollisionLineCircle(inVertex1, inVertex2,
                                     inCirclePosition, inRadius,
                                     outSolutions)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 5);
+    DEBUGCheckArgumentsAreValids(arguments, 5);
 
     var vertex1To2 = inVertex2.sub(inVertex1);
     var circleToVertex1 = inCirclePosition.sub(inVertex1);
@@ -388,7 +388,7 @@ function privateCollisionLineCircle(inVertex1, inVertex2,
 ///////////////////////////////////////////////////////////////
 function privateCollisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
 {
-    //DEBUGCheckFirstArgumentsAreValids(arguments, 4);
+    DEBUGCheckFirstArgumentsAreValids(arguments, 4);
 
     if (outSubResult)
     {

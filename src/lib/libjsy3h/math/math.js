@@ -5,7 +5,7 @@ var myMathEpsilon = 0.001;
 ///////////////////////////////////////////////////////////////
 function floatEqual(x, y)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 2);
+    DEBUGCheckArgumentsAreValids(arguments, 2);
 
     return equal = (Math.abs(x - y) < myMathEpsilon);
 }

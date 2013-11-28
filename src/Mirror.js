@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function Mirror(inShapeType)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     var radius = 20;
 
@@ -22,7 +22,7 @@ function Mirror(inShapeType)
     }
     else
     {
-        //console.error("Shape " + inShapeType + " not known");
+        console.error("Shape " + inShapeType + " not known");
     }
 }
 
@@ -35,7 +35,7 @@ Mirror.prototype = new Item;
 ///////////////////////////////////////////////////////////////
 Mirror.prototype.draw = function()
 {
-    //console.log("Draw " + this.toString());
+    console.log("Draw " + this.toString());
 
     //var alpha = this.movingInLauncherBar ? 0.5 : 1.0;
 
@@ -66,7 +66,7 @@ Mirror.prototype.handleBeamCollision = function(outBeams,
                                                 inInputRefractiveIndex,
                                                 inBeamSize)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 6);
+    DEBUGCheckArgumentsAreValids(arguments, 6);
 
     var outputRayDirection = inInputRayDirection.multiply(-1);
     outputRayDirection.normalizeInline();

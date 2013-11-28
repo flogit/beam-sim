@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////////////
 function Circle(inRadius)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.type = "circle";
 
@@ -33,7 +33,7 @@ Circle.prototype.draw = function()
 ///////////////////////////////////////////////////////////////
 Circle.prototype.translate = function(inOffset)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.center.addInline(inOffset);
 }
@@ -42,7 +42,7 @@ Circle.prototype.translate = function(inOffset)
 ///////////////////////////////////////////////////////////////
 Circle.prototype.scale = function(inRatio)
 {
-    //DEBUGCheckArgumentsAreValids(arguments, 1);
+    DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.radius *= inRatio;
 }
