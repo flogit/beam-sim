@@ -25,22 +25,29 @@
         <title>Simulation de Rayons Lumineux BeamSim</title>
     </head>
     <body onload="onLoad(true);">
-        <div id="outer">
-            <div id="inner">
-                <center>
-                <canvas id="canvas">
-                    Votre navigateur ne semble pas supporter l'élément HTML5 canvas</code>.
-                </canvas>
-                <div id="canvas_config">
-                <p>
-                <form name="form" action="#">
-                <input type="radio" name="bg" value="black" checked="checked" onclick="setBeamColor(255, 255, 0)" />Black background&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
-                <input type="submit" value="clear" onclick="clearDrawingArea()">&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
-                <input type="radio" name="bg" value="white" onclick="setBeamColor(0, 0, 0)" />White background
-                </p>
-                </div>
-                </center>
-            </div>
+        <center>
+        <canvas id="canvas">
+            Votre navigateur ne semble pas supporter l'élément HTML5 canvas.
+        </canvas>
+        <div id="canvas_config">
+        <p>
+        <form name="form" action="#">
+        <input type="radio" name="bg" value="black" checked="checked" onclick="setBeamColor(255, 255, 0)" />Black background&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+        <input type="submit" value="clear" onclick="clearDrawingArea()">&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+        <input type="radio" name="bg" value="white" onclick="setBeamColor(0, 0, 0)" />White background
+        </p>
         </div>
+        </center>
+
+        <script type="text/javascript">
+            function onLoad()
+            {
+                canvas = document.getElementById('canvas');
+                canvas.width  = getWidth() - 20;
+                canvas.height = getHeight() - 80;
+
+                init(canvas);
+            }
+        </script>
     </body>
 </html>

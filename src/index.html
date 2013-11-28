@@ -27,9 +27,9 @@
     <body onload="onLoad();">
         <div id="outer">
             <div id="inner">
-                <h2>Simulation de Rayons Lumineux : <i>BeamSim</i></h2>
+                <h2>Simulation de Rayons Lumineux : <em>BeamSim</em></h2>
                 <canvas id="canvas">
-                    Votre navigateur ne semble pas supporter l'élément HTML5 canvas</code>.
+                    Votre navigateur ne semble pas supporter l'élément HTML5 canvas.
                 </canvas>
                 <div id="canvas_config">
                 <p>
@@ -47,5 +47,24 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            function onLoad()
+            {
+                var width  = Math.min(getWidth() - 120, 800);
+                var height = Math.min(width, getHeight() - 200);
+
+                width  = Math.max(width, 300);
+                height = Math.max(height, 300);
+
+                canvas = document.getElementById('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                document.getElementById('info').style.width = width;
+
+                init(canvas);
+            }
+        </script>
     </body>
 </html>

@@ -163,45 +163,11 @@ function mainDraw()
 
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
-function onLoad(in_raw)
+function init(inCanvas)
 {
-    var width;
-    var height;
-
-    if (!in_raw)
-    {
-        width = getWidth() - 120;
-        var realHeight = getHeight()
-
-        width = Math.min(width, 800);
-
-        height = width; // Try square canvas
-
-        if (height > realHeight - 200)
-        {
-            height = realHeight - 200;
-        }
-
-        width = Math.max(width, 300);
-        height = Math.max(height, 300);
-    }
-    else
-    {
-        width = getWidth() * 0.95;
-        height = getHeight() * 0.95 - 80;
-    }
+    gCanvas = inCanvas;
 
     var launcherBarSize = 100;
-
-    gCanvas = document.getElementById('canvas');
-    gCanvas.width = width;
-    gCanvas.height = height;
-
-    gInfoDiv = document.getElementById('info');
-    if (gInfoDiv)
-    {
-        gInfoDiv.style.width = width;
-    }
 
     //return new Utest();
 
