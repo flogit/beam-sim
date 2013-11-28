@@ -29,6 +29,10 @@ function drawShapePath(inShape)
         gCtx.arc(inShape.center.x, inShape.center.y, inShape.radius, 0, Math.PI * 2, true);
         gCtx.closePath();
     }
+    else
+    {
+        console.error("Tru to draw path of the not-known shape " + inShape.type);
+    }
 }
 
 ///////////////////////////////////////////////////////////////
