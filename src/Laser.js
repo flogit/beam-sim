@@ -36,7 +36,7 @@ Laser.prototype.generateBeams = function(outBeams)
     var beamDirection = new Vector2D(0, 1);
     beamDirection = beamDirection.rotate(this.angle);
 
-    beamStart = beamStart.add(beamDirection.multiply(myMathEpsilon));
+    beamStart = beamStart.add(beamDirection.multiply(gMathEpsilon));
 
     var refractiveIndex = getRefractiveIndex(beamStart);
     if (refractiveIndex)

@@ -7,7 +7,8 @@ function Polygon(inVertices)
 
     console.assert(inVertices.length >= 3);
 
-    this.type = "polygon";
+    this.init("polygon");
+
     this.vertices = inVertices;
 
     this.center = new Vector2D(0, 0);
@@ -29,22 +30,9 @@ function Polygon(inVertices)
 }
 
 ///////////////////////////////////////////////////////////////
+/// Inheritance
 ///////////////////////////////////////////////////////////////
-Polygon.prototype.drawPath = function()
-{
-    drawPolygonPath(this.vertices);
-}
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Polygon.prototype.draw = function()
-{
-    gCtx.save();
-    this.drawPath();
-    gCtx.fillStyle = "#909090";
-    gCtx.fill();
-    gCtx.restore();
-}
+Polygon.prototype = new Shape;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 //globals:
-var myMathEpsilon = 0.001;
+var gMathEpsilon = 0.001;
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -7,5 +7,5 @@ function floatEqual(x, y)
 {
     DEBUGCheckArgumentsAreValids(arguments, 2);
 
-    return equal = (Math.abs(x - y) < myMathEpsilon);
+    return (Math.abs(x - y) < gMathEpsilon);
 }

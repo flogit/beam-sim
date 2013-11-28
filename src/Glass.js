@@ -51,7 +51,7 @@ Glass.prototype.draw = function()
     {
         gCtx.globalAlpha = 0.5;
     }
-    this.shape.drawPath();
+    drawShapePath(this.shape);
     gCtx.fillStyle = gTransparentColor;
     this.enableShadow();
     gCtx.fill();
@@ -80,7 +80,7 @@ Glass.prototype.handleBeamCollision = function(outBeams,
 
     var theta1 = Math.acos(costheta1);
 
-    var outputBeamStart = inCollidedPoint.add(inInputRayDirection.multiply(myMathEpsilon));
+    var outputBeamStart = inCollidedPoint.add(inInputRayDirection.multiply(gMathEpsilon));
 
     var refractiveIndex2 = getRefractiveIndex(outputBeamStart);
 

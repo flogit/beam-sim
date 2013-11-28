@@ -1,3 +1,5 @@
+// Use this inspiration ? http://evanw.github.io/lightgl.js/docs/vector.html
+
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 function Vector2D(x, y)
@@ -10,12 +12,102 @@ function Vector2D(x, y)
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
+Vector2D.prototype.equal = function(that)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return floatEqual(this.x, that.x) && floatEqual(this.y, that.y);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 Vector2D.prototype.assign = function(that)
 {
     DEBUGCheckArgumentsAreValids(arguments, 1);
 
     this.x = that.x;
     this.y = that.y;
+
+    return this;
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.clone = function()
+{
+    return new Vector2D(this.x, this.y);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.add = function(that)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return new Vector2D(this.x + that.x, this.y + that.y);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.addInline = function(that)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return this.assign(this.add(that));
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.sub = function(that)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return new Vector2D(this.x - that.x, this.y - that.y);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.subInline = function(that)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return this.assign(this.sub(that));
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.multiply = function(scalar)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return new Vector2D(this.x * scalar, this.y * scalar);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.multiplyInline = function(scalar)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return this.assign(this.multiply(scalar));
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.divide = function(scalar)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return new Vector2D(this.x / scalar, this.y / scalar);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.divideInline = function(scalar)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    return this.assign(this.divide(scalar));
 };
 
 ///////////////////////////////////////////////////////////////
@@ -30,6 +122,22 @@ Vector2D.prototype.norm = function()
 Vector2D.prototype.normSq = function()
 {
     return (this.x*this.x + this.y*this.y);
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.normalize = function()
+{
+    return this.divide(this.norm());
+};
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Vector2D.prototype.normalizeInline = function()
+{
+    this.divideInline(this.norm());
+
+    return this;
 };
 
 ///////////////////////////////////////////////////////////////
@@ -52,131 +160,33 @@ Vector2D.prototype.cross = function(that)
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-Vector2D.prototype.normalize = function()
-{
-    return this.divide(this.norm());
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.normalizeInline = function()
-{
-    this.divideInline(this.norm());
-
-    return this;
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.add = function(that)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    return new Vector2D(this.x + that.x, this.y + that.y);
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.addInline = function(that)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    this.x += that.x;
-    this.y += that.y;
-
-    return this;
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.sub = function(that)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    return new Vector2D(this.x - that.x, this.y - that.y);
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.subInline = function(that)
-{
-    this.x -= that.x;
-    this.y -= that.y;
-
-    return this;
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.multiply = function(scalar)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    return new Vector2D(this.x * scalar, this.y * scalar);
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.multiplyInline = function(scalar)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    this.x *= scalar;
-    this.y *= scalar;
-
-    return this;
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.divide = function(scalar)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    return new Vector2D(this.x / scalar, this.y / scalar);
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.divideInline = function(scalar)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    this.x /= scalar;
-    this.y /= scalar;
-
-    return this;
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
 Vector2D.prototype.rotate = function(inAngle, inCenter)
 {
     DEBUGCheckFirstArgumentsAreValids(arguments, 1);
 
+    var centered_vector;
+
     if (typeof inCenter != 'undefined')
     {
-        var t = this.sub(inCenter);
+        centered_vector = this.sub(inCenter);
     }
     else
     {
-        var t = this;
+        centered_vector = this.clone();
     }
 
     var s = Math.sin(inAngle);
     var c = Math.cos(inAngle);
 
-    var rot = new Vector2D(t.x * c - t.y * s,
-                           t.x * s + t.y * c);
+    var rotated_centered_vector = new Vector2D(centered_vector.x * c - centered_vector.y * s,
+                                               centered_vector.x * s + centered_vector.y * c);
 
     if (typeof inCenter != 'undefined')
     {
-        return rot.add(inCenter);
+        rotated_centered_vector.addInline(inCenter);
     }
-    else
-    {
-        return rot;
-    }
+
+    return rotated_centered_vector;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -185,37 +195,8 @@ Vector2D.prototype.rotateInline = function(inAngle, inCenter)
 {
     DEBUGCheckFirstArgumentsAreValids(arguments, 1);
 
-    if (typeof inCenter != 'undefined')
-    {
-        var t = this.sub(inCenter);
-    }
-    else
-    {
-        var t = this;
-    }
-
-    var s = Math.sin(inAngle);
-    var c = Math.cos(inAngle);
-
-    var rot = new Vector2D(t.x * c - t.y * s,
-                           t.x * s + t.y * c);
-
-    if (typeof inCenter != 'undefined')
-    {
-        rot.addInline(inCenter);
-    }
-
-    this.assign(rot);
+    return this.assign(this.rotate(inAngle, inCenter));
 }
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.equal = function(that)
-{
-    DEBUGCheckArgumentsAreValids(arguments, 1);
-
-    return floatEqual(this.x, that.x) && floatEqual(this.y, that.y);
-};
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -229,11 +210,4 @@ Vector2D.prototype.toString = function(accurate)
     {
         return "(" + this.x.toFixed(2) + ", " + this.y.toFixed(2) + ")";
     }
-};
-
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
-Vector2D.prototype.clone = function()
-{
-    return new Vector2D(this.x, this.y);
 };

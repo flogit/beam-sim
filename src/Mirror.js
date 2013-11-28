@@ -46,7 +46,7 @@ Mirror.prototype.draw = function()
         gCtx.globalAlpha = 0.5;
     }
 
-    this.shape.drawPath();
+    drawShapePath(this.shape);
     gCtx.fillStyle = "rgb(107, 60, 26)";
     gCtx.save();
     this.enableShadow();
@@ -74,7 +74,7 @@ Mirror.prototype.handleBeamCollision = function(outBeams,
     var proj = inNormal.multiply(outputRayDirection.dot(inNormal));
 
     outputRayDirection = outputRayDirection.add(proj.sub(outputRayDirection).multiply(2));
-    var outputRayStart = inCollidedPoint.add(outputRayDirection.multiply(myMathEpsilon));
+    var outputRayStart = inCollidedPoint.add(outputRayDirection.multiply(gMathEpsilon));
 
     var beam = new Beam(outBeams, outputRayStart, outputRayDirection.normalize(), inInputRefractiveIndex, inBeamSize);
 }
