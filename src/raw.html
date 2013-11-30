@@ -2,14 +2,19 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link type="text/css" href="style_raw.css" rel="stylesheet">
-        <script type="text/javascript" src="lib/libjsy3h/vector/Vector2D.js"></script>
+
         <script type="text/javascript" src="lib/libjsy3h/math/math.js"></script>
-        <script type="text/javascript" src="lib/libjsy3h/debug/debug.js"></script>
-        <script type="text/javascript" src="lib/libjsy3h/collision/collision2d.js"></script>
+        <script type="text/javascript" src="lib/libjsy3h/math/Vector2D.js"></script>
+
+        <script type="text/javascript" src="lib/libjsy3h/common/debug.js"></script>
+        <script type="text/javascript" src="lib/libjsy3h/common/window.js"></script>
+        <script type="text/javascript" src="lib/libjsy3h/common/draw2d.js"></script>
+
         <script type="text/javascript" src="lib/libjsy3h/geometry/Shape.js"></script>
         <script type="text/javascript" src="lib/libjsy3h/geometry/Circle.js"></script>
         <script type="text/javascript" src="lib/libjsy3h/geometry/Polygon.js"></script>
-        <script type="text/javascript" src="lib/libjsy3h/draw/draw2d.js"></script>
+        <script type="text/javascript" src="lib/libjsy3h/geometry/collision2d.js"></script>
+
         <script type="text/javascript" src="misc.js"></script>
 
         <script type="text/javascript" src="main.js"></script>
@@ -22,21 +27,23 @@
         <script type="text/javascript" src="Glass.js"></script>
 
         <script type="text/javascript" src="Utest.js"></script>
+
         <title>Simulation de Rayons Lumineux BeamSim</title>
     </head>
     <body onload="onLoad(true);">
         <center>
-        <canvas id="canvas">
-            Votre navigateur ne semble pas supporter l'élément HTML5 canvas.
-        </canvas>
-        <div id="canvas_config">
-        <p>
-        <form name="form" action="#">
-        <input type="radio" name="bg" value="black" checked="checked" onclick="setBeamColor(255, 255, 0)" />Black background&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
-        <input type="submit" value="clear" onclick="clearDrawingArea()">&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
-        <input type="radio" name="bg" value="white" onclick="setBeamColor(0, 0, 0)" />White background
-        </p>
-        </div>
+            <canvas id="canvas">
+                Votre navigateur ne semble pas supporter l'élément HTML5 canvas.
+            </canvas>
+            <div id="canvas_config">
+                <p>
+                    <form name="form" action="#">
+                        <input type="radio" name="bg" value="black" checked="checked" onclick="setBeamColor(255, 255, 0)" />Black background&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+                        <input type="submit" value="clear" onclick="clearDrawingArea()">&nbsp; &nbsp; &nbsp;|&nbsp; &nbsp;
+                        <input type="radio" name="bg" value="white" onclick="setBeamColor(0, 0, 0)" />White background
+                    </form>
+                </p>
+            </div>
         </center>
 
         <script type="text/javascript">

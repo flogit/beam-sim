@@ -1,6 +1,3 @@
-debug/1571
-math/290
-geometry/4288
-vector/6278
-collision/11637
-draw/1257
+common/4505
+math/6568
+geometry/15925
