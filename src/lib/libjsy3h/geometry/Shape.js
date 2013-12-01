@@ -30,3 +30,21 @@ Shape.prototype.scale = function(inRatio)
 {
     console.error("Scale not defined for shape ", inType);
 }
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Shape.prototype.setPosition = function(inNewPosition)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    this.translate(inNewPosition.sub(this.position));
+}
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+Shape.prototype.setAngle = function(inNewAngle)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 1);
+
+    this.rotate(inNewAngle - this.angle);
+}

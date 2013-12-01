@@ -114,7 +114,7 @@ Glass.prototype.handleBeamCollision = function(outBeams,
         var proj = inNormal.multiply(outputRayDirection.dot(inNormal));
 
         outputRayDirection = outputRayDirection.add(proj.sub(outputRayDirection).multiply(2));
-        var outputBeamStart = inCollidedPoint.add(outputRayDirection.multiply(myMathEpsilon));
+        var outputBeamStart = inCollidedPoint.add(outputRayDirection.multiply(gMathEpsilon));
 
         var beam = new Beam(outBeams, outputBeamStart, outputRayDirection.normalize(), inInputRefractiveIndex1, inBeamSize);
     }

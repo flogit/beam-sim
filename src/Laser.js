@@ -31,10 +31,10 @@ Laser.prototype.generateBeams = function(outBeams)
     }
 
     var frontOffset = new Vector2D(0, this.height / 2);
-    var beamStart = this.shape.center.add(frontOffset.rotate(this.angle));
+    var beamStart = this.shape.position.add(frontOffset.rotate(this.shape.angle));
 
     var beamDirection = new Vector2D(0, 1);
-    beamDirection = beamDirection.rotate(this.angle);
+    beamDirection = beamDirection.rotate(this.shape.angle);
 
     beamStart = beamStart.add(beamDirection.multiply(gMathEpsilon));
 
@@ -56,8 +56,8 @@ Laser.prototype.draw = function()
     console.log("Draw " + this.toString());
 
     gCtx.save();
-    gCtx.translate(this.shape.center.x, this.shape.center.y);
-    gCtx.rotate(this.angle);
+    gCtx.translate(this.shape.position.x, this.shape.position.y);
+    gCtx.rotate(this.shape.angle);
 
     if (this.movingInLauncherBar)
     {

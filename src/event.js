@@ -26,8 +26,8 @@ function onMouseDown(inRawEvent)
     {
         item = gItems[i];
 
-        var extendedCircle = new Circle(item.shape.radius + 10);
-        extendedCircle.translate(item.shape.center);
+        var extendedCircle = new Circle(item.shape.bsphereRadius + 10);
+        extendedCircle.translate(item.shape.bsphereCenter);
         if (collisionVertexCircle(mousePos, extendedCircle))
         {
             gSelectedItemIdx = i;
@@ -50,8 +50,8 @@ function onMouseDown(inRawEvent)
         {
             launcherItem = gLauncherItems[i];
 
-            var extendedCircle = new Circle(launcherItem.shape.radius + 10);
-            extendedCircle.translate(launcherItem.shape.center);
+            var extendedCircle = new Circle(launcherItem.shape.bsphereRadius + 10);
+            extendedCircle.translate(launcherItem.shape.bsphereCenter);
             if (collisionVertexCircle(mousePos, extendedCircle))
             {
                 console.log("Launching the item " + launcherItem.name)
@@ -84,9 +84,9 @@ function onMouseDown(inRawEvent)
 
                 if (newItem.canRotate())
                 {
-                    newItem.rotate(launcherItem.angle);
+                    newItem.rotate(launcherItem.shape.angle);
                 }
-                newItem.moveTo(launcherItem.shape.center);
+                newItem.moveTo(launcherItem.shape.position);
                 newItem.movingInLauncherBar = true;
                 gItems.push(newItem);
                 gSelectedItemIdx = gItems.length - 1;
@@ -129,24 +129,24 @@ function onMouseMove(inRawEvent)
 
             var gSelectedItem = gItems[gSelectedItemIdx];
 
-            if (gSelectedItem.shape.center.x + mouseOffset.x - gSelectedItem.shape.radius > gDrawingAreaBottomLeftCorner.x  &&
-                gSelectedItem.shape.center.x + mouseOffset.x + gSelectedItem.shape.radius < gDrawingAreaTopRightCorner.x &&
-                gSelectedItem.shape.center.y + mouseOffset.y - gSelectedItem.shape.radius > gDrawingAreaTopRightCorner.y  &&
-                gSelectedItem.shape.center.y + mouseOffset.y + gSelectedItem.shape.radius < gDrawingAreaBottomLeftCorner.y)
+            if (gSelectedItem.shape.bsphereCenter.x + mouseOffset.x - gSelectedItem.shape.bsphereRadius > gDrawingAreaBottomLeftCorner.x  &&
+                gSelectedItem.shape.bsphereCenter.x + mouseOffset.x + gSelectedItem.shape.bsphereRadius < gDrawingAreaTopRightCorner.x &&
+                gSelectedItem.shape.bsphereCenter.y + mouseOffset.y - gSelectedItem.shape.bsphereRadius > gDrawingAreaTopRightCorner.y  &&
+                gSelectedItem.shape.bsphereCenter.y + mouseOffset.y + gSelectedItem.shape.bsphereRadius < gDrawingAreaBottomLeftCorner.y)
             {
                 gSelectedItem.movingInLauncherBar = false;
                 gSelectedItem.translate(mouseOffset);
             }
-            else if (gSelectedItem.shape.center.x + mouseOffset.x - gSelectedItem.shape.radius > gLauncherAreaBottomLeftCorner.x  &&
-                     gSelectedItem.shape.center.x + mouseOffset.x + gSelectedItem.shape.radius < gLauncherAreaTopRightCorner.x &&
-                     gSelectedItem.shape.center.y + mouseOffset.y + gSelectedItem.shape.radius > gLauncherAreaTopRightCorner.y  &&
-                     gSelectedItem.shape.center.y + mouseOffset.y + gSelectedItem.shape.radius < gLauncherAreaBottomLeftCorner.y)
+            else if (gSelectedItem.shape.bsphereCenter.x + mouseOffset.x - gSelectedItem.shape.bsphereRadius > gLauncherAreaBottomLeftCorner.x  &&
+                     gSelectedItem.shape.bsphereCenter.x + mouseOffset.x + gSelectedItem.shape.bsphereRadius < gLauncherAreaTopRightCorner.x &&
+                     gSelectedItem.shape.bsphereCenter.y + mouseOffset.y + gSelectedItem.shape.bsphereRadius > gLauncherAreaTopRightCorner.y  &&
+                     gSelectedItem.shape.bsphereCenter.y + mouseOffset.y + gSelectedItem.shape.bsphereRadius < gLauncherAreaBottomLeftCorner.y)
             {
                 if (!gSelectedItemComeFromLaunchingBar &&
-                    gSelectedItem.shape.center.x + mouseOffset.x - gSelectedItem.shape.radius > gLauncherAreaBottomLeftCorner.x  &&
-                    gSelectedItem.shape.center.x + mouseOffset.x + gSelectedItem.shape.radius < gLauncherAreaTopRightCorner.x &&
-                    gSelectedItem.shape.center.y + mouseOffset.y > gLauncherAreaTopRightCorner.y  &&
-                    gSelectedItem.shape.center.y + mouseOffset.y + gSelectedItem.shape.radius < gLauncherAreaBottomLeftCorner.y)
+                    gSelectedItem.shape.bsphereCenter.x + mouseOffset.x - gSelectedItem.shape.bsphereRadius > gLauncherAreaBottomLeftCorner.x  &&
+                    gSelectedItem.shape.bsphereCenter.x + mouseOffset.x + gSelectedItem.shape.bsphereRadius < gLauncherAreaTopRightCorner.x &&
+                    gSelectedItem.shape.bsphereCenter.y + mouseOffset.y > gLauncherAreaTopRightCorner.y  &&
+                    gSelectedItem.shape.bsphereCenter.y + mouseOffset.y + gSelectedItem.shape.bsphereRadius < gLauncherAreaBottomLeftCorner.y)
                 {
                     gItems.splice(gSelectedItemIdx, 1);
                     gSelectedItemIdx = undefined;
@@ -279,8 +279,6 @@ function onKeyDown(inRawEvent)
 
     var evt = window.event || inRawEvent; //equalize event object
     DEBUGAssertIsValid(evt);
-
-    console.log("On key down with keyCode " + evt.keyCode);
 
     if (typeof gSelectedItemIdx != 'undefined')
     {

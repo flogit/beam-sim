@@ -13,7 +13,6 @@ Item.prototype.init = function(inName, inWidth, inHeight)
 {
     DEBUGCheckArgumentsAreValids(arguments, 3);
 
-    this.angle               = 0;
     this.width               = inWidth;
     this.height              = inHeight;
     this.name                = inName;
@@ -37,8 +36,8 @@ Item.prototype.drawTranslateIcon = function()
     var radius = 4;
     var offset = 3;
 
-    gCtx.translate(this.shape.center.x - 0.75 * this.shape.radius - offset,
-                   this.shape.center.y - 0.75 * this.shape.radius - offset);
+    gCtx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
+                   this.shape.bsphereCenter.y - 0.75 * this.shape.bsphereRadius - offset);
 
     gCtx.beginPath();
     gCtx.moveTo(-radius, 0);
@@ -61,8 +60,8 @@ Item.prototype.drawRotationIcon = function()
     var radius = 3;
     var offset = 3;
 
-    gCtx.translate(this.shape.center.x - 0.75 * this.shape.radius - offset,
-                   this.shape.center.y - 0.75 * this.shape.radius - offset);
+    gCtx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
+                   this.shape.bsphereCenter.y - 0.75 * this.shape.bsphereRadius - offset);
 
     gCtx.beginPath();
     gCtx.arc(0, 0, radius, 0, 2 * Math.PI, false);
@@ -95,7 +94,7 @@ Item.prototype.moveTo = function(inNewPosition)
 {
     DEBUGCheckArgumentsAreValids(arguments, 1);
 
-    this.shape.translate(inNewPosition.sub(this.shape.center));
+    this.shape.setPosition(inNewPosition);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -112,12 +111,7 @@ Item.prototype.rotate = function(inAngle)
     DEBUGCheckArgumentsAreValids(arguments, 1);
     console.assert(this.canRotate(), "Try to rotate item that can not rotate");
 
-    this.angle += inAngle;
-
-    if (this.angle > 2 * Math.PI) this.angle -= 2 * Math.PI;
-    if (this.angle < 0)           this.angle += 2 * Math.PI;
-
-    this.shape.rotate(inAngle, this.shape.center);
+    this.shape.rotate(inAngle);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -126,14 +120,14 @@ Item.prototype.scale = function(inRatio)
 {
     DEBUGCheckArgumentsAreValids(arguments, 1);
 
-    var ratioMulRadius = inRatio * this.shape.radius;
+    var ratioMulRadius = inRatio * this.shape.bsphereRadius;
 
-    if (this.shape.center.x - ratioMulRadius > gDrawingAreaBottomLeftCorner.x &&
-        this.shape.center.x + ratioMulRadius < gDrawingAreaTopRightCorner.x   &&
-        this.shape.center.y - ratioMulRadius > gDrawingAreaTopRightCorner.y   &&
-        this.shape.center.y + ratioMulRadius < gDrawingAreaBottomLeftCorner.y)
+    if (this.shape.bsphereCenter.x - ratioMulRadius > gDrawingAreaBottomLeftCorner.x &&
+        this.shape.bsphereCenter.x + ratioMulRadius < gDrawingAreaTopRightCorner.x   &&
+        this.shape.bsphereCenter.y - ratioMulRadius > gDrawingAreaTopRightCorner.y   &&
+        this.shape.bsphereCenter.y + ratioMulRadius < gDrawingAreaBottomLeftCorner.y)
     {
-        this.width *= inRatio;
+        this.width  *= inRatio;
         this.height *= inRatio;
 
         this.shape.scale(inRatio);
@@ -154,5 +148,5 @@ Item.prototype.enableShadow = function()
 ///////////////////////////////////////////////////////////////
 Item.prototype.toString = function()
 {
-    return "item " + this.name + " (id " + this.id + ") at position " + this.shape.center + " (" + this.width.toFixed(2) + " X " + this.height.toFixed(2) + ")";
+    return "item " + this.name + " (id " + this.id + ") at position " + this.shape.position + " (" + this.width.toFixed(2) + " X " + this.height.toFixed(2) + ")";
 }

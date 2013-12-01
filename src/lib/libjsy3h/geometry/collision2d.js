@@ -27,9 +27,10 @@ function collisionVertexShape(inVertex, inShape)
 function collisionVertexPolygon(inVertex, inPolygon)
 {
     DEBUGCheckArgumentsAreValids(arguments, 2);
+    console.assert(inPolygon.type == "polygon");
 
-    var vectorPolygonCenterToVertex = inPolygon.center.sub(inVertex);
-    if (vectorPolygonCenterToVertex.normSq() > inPolygon.radius * inPolygon.radius)
+    var vectorPolygonToVertex = inPolygon.position.sub(inVertex);
+    if (vectorPolygonToVertex.normSq() > inPolygon.bsphereRadius * inPolygon.bsphereRadius)
     {
         return false;
     }
@@ -76,9 +77,10 @@ function collisionVertexPolygon(inVertex, inPolygon)
 function collisionVertexCircle(inVertex, inCircle)
 {
     DEBUGCheckArgumentsAreValids(arguments, 2);
+    console.assert(inCircle.type == "circle");
 
-    var vectorPolygonCenterToVertex = inCircle.center.sub(inVertex);
-    return vectorPolygonCenterToVertex.normSq() <= inCircle.radius * inCircle.radius;
+    var vectorVertexToCircle = inCircle.position.sub(inVertex);
+    return vectorVertexToCircle.normSq() <= inCircle.radius * inCircle.radius;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -216,6 +218,7 @@ function collisionRayPolygon(inV1,
                              outSubResult)
 {
     DEBUGCheckFirstArgumentsAreValids(arguments, 3);
+    console.assert(inPolygon.type == "polygon");
 
     if (outSubResult)
     {
@@ -270,6 +273,7 @@ function collisionRayCircle(inRayStart,
                             outSubResult)
 {
     DEBUGCheckFirstArgumentsAreValids(arguments, 3);
+    console.assert(inCircle.type == "circle");
 
     if (outSubResult)
     {
@@ -277,10 +281,10 @@ function collisionRayCircle(inRayStart,
         outSubResult['r'] = Number.MAX_VALUE;
     }
 
-    DEBUGAssertIsValid(inCircle.center);
+    DEBUGAssertIsValid(inCircle.position);
     DEBUGAssertIsValid(inCircle.radius);
 
-    var circlePosition = inCircle.center;
+    var circlePosition = inCircle.position;
     var circleRadius = inCircle.radius;
 
     var solutions = new Array();
@@ -338,9 +342,46 @@ function collisionRayCircle(inRayStart,
 }
 
 ///////////////////////////////////////////////////////////////
+///@warning Assume convex polygon
+///@warning If 2 polygons are collided : At least 1 vertex is IN the ther polygon (false)
+///////////////////////////////////////////////////////////////
+function collisionPolygonPolygon(inPolygon1, inPolygon2)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 2);
+    console.assert(inPolygon1.type == "polygon");
+    console.assert(inPolygon2.type == "polygon");
+
+    var nbVertices1 = inPolygon1.vertices.length;
+    var vertex1;
+    for (var idxVertices1 = 0; idxVertices1 < nbVertices1; idxVertices1++)
+    {
+        vertex1 = inPolygon1.vertices[idxVertices1];
+
+        if (collisionVertexPolygon(vertex1, inPolygon2))
+        {
+            return true;
+        }
+    }
+
+    var nbVertices2 = inPolygon2.vertices.length;
+    var vertex2;
+    for (var idxVertices2 = 0; idxVertices2 < nbVertices2; idxVertices2++)
+    {
+        vertex2 = inPolygon2.vertices[idxVertices2];
+
+        if (collisionVertexPolygon(vertex2, inPolygon1))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 function privateCollisionLineCircle(inVertex1, inVertex2,
-                                    inCirclePosition, inRadius,
+                                    inCirclePosition, inCircleRadius,
                                     outSolutions)
 {
     DEBUGCheckArgumentsAreValids(arguments, 5);
@@ -355,12 +396,12 @@ function privateCollisionLineCircle(inVertex1, inVertex2,
     var circleToMidpt = midpt.sub(inCirclePosition);
     var distSqToCenter = circleToMidpt.normSq();
 
-    if (distSqToCenter > inRadius * inRadius)
+    if (distSqToCenter > inCircleRadius * inCircleRadius)
     {
         return 0;
     }
 
-    if (floatEqual(distSqToCenter, inRadius * inRadius))
+    if (floatEqual(distSqToCenter, inCircleRadius * inCircleRadius))
     {
         outSolutions['s1'] = midpt;
         return 1;
@@ -368,11 +409,11 @@ function privateCollisionLineCircle(inVertex1, inVertex2,
 
     if (floatEqual(distSqToCenter, 0))
     {
-        var distToIntersection = inRadius;
+        var distToIntersection = inCircleRadius;
     }
     else
     {
-        var distToIntersection = Math.sqrt(inRadius * inRadius - distSqToCenter);
+        var distToIntersection = Math.sqrt(inCircleRadius * inCircleRadius - distSqToCenter);
     }
 
     vertex1To2.normalizeInline();

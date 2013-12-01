@@ -26,12 +26,12 @@ function drawShapePath(inShape)
     else if (inShape.type == "circle")
     {
         gCtx.beginPath();
-        gCtx.arc(inShape.center.x, inShape.center.y, inShape.radius, 0, Math.PI * 2, true);
+        gCtx.arc(inShape.position.x, inShape.position.y, inShape.radius, 0, Math.PI * 2, true);
         gCtx.closePath();
     }
     else
     {
-        console.error("Tru to draw path of the not-known shape " + inShape.type);
+        console.error("Try to draw path of the not-known shape " + inShape.type);
     }
 }
 
@@ -41,7 +41,10 @@ function drawShape(inShape)
 {
     gCtx.save();
     drawShapePath(inShape);
-    gCtx.fillStyle = "#FF0000";
+    gCtx.fillStyle = "rgba(255, 0, 0, 0.5)";
     gCtx.fill();
+    drawShapePath(inShape);
+    gCtx.strokeStyle = "rgb(0, 255, 0)";
+    gCtx.stroke();
     gCtx.restore();
 }
