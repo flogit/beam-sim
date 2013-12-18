@@ -1,6 +1,8 @@
-///////////////////////////////////////////////////////////////
-/// Constructor
-///////////////////////////////////////////////////////////////
+"use strict";
+
+/**
+ * @constructor
+ */
 function Polygon(inVertices)
 {
     DEBUGCheckArgumentsAreValids(arguments, 1);
@@ -18,19 +20,19 @@ function Polygon(inVertices)
 
     for (var i = 0; i < this.vertices.length; i++)
     {
-        var vertex = this.vertices[i];
-
-        this.bsphereCenter.addInline(vertex);
-
-        /// Compute Radius of BSphere
-        var length = vertex.sub(this.position).norm();
-        if (i == 0 || length > this.bsphereRadius)
-        {
-            this.bsphereRadius = length;
-        }
+        this.bsphereCenter.addInline(this.vertices[i]);
     }
 
     this.bsphereCenter.divideInline(this.vertices.length);
+
+    for (var i = 0; i < this.vertices.length; i++)
+    {
+        var radius = this.vertices[i].sub(this.bsphereCenter).norm();
+        if (i == 0 || radius > this.bsphereRadius)
+        {
+            this.bsphereRadius = radius;
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////

@@ -1,3 +1,4 @@
+"use strict";
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ function collisionVertexPolygon(inVertex, inPolygon)
     DEBUGCheckArgumentsAreValids(arguments, 2);
     console.assert(inPolygon.type == "polygon");
 
-    var vectorPolygonToVertex = inPolygon.position.sub(inVertex);
+    var vectorPolygonToVertex = inPolygon.bsphereCenter.sub(inVertex);
     if (vectorPolygonToVertex.normSq() > inPolygon.bsphereRadius * inPolygon.bsphereRadius)
     {
         return false;
@@ -79,8 +80,8 @@ function collisionVertexCircle(inVertex, inCircle)
     DEBUGCheckArgumentsAreValids(arguments, 2);
     console.assert(inCircle.type == "circle");
 
-    var vectorVertexToCircle = inCircle.position.sub(inVertex);
-    return vectorVertexToCircle.normSq() <= inCircle.radius * inCircle.radius;
+    var vectorVertexToCircle = inCircle.bsphereCenter.sub(inVertex);
+    return vectorVertexToCircle.normSq() <= inCircle.bsphereRadius * inCircle.bsphereRadius;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -94,9 +95,9 @@ function collisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
         outSubResult.length = 0;
     }
 
-    var lineLineSubResult = new Array();
+    var lineLineSubResult = [];
 
-    if (privateCollisionLineLine(inV1, inV2, inV3, inV4, lineLineSubResult))
+    if (__collisionLineLine(inV1, inV2, inV3, inV4, lineLineSubResult))
     {
         var r = lineLineSubResult['r']; // alias
 
@@ -122,9 +123,9 @@ function collisionSegmentSegment(inV1, inV2, inV3, inV4, outSubResult)
         outSubResult.length = 0;
     }
 
-    var lineLineSubResult = new Array();
+    var lineLineSubResult = [];
 
-    if (privateCollisionLineLine(inV1, inV2, inV3, inV4, lineLineSubResult))
+    if (__collisionLineLine(inV1, inV2, inV3, inV4, lineLineSubResult))
     {
         var r = lineLineSubResult['r']; // alias
         var s = lineLineSubResult['s']; // alias
@@ -157,9 +158,9 @@ function collisionRaySegment(inV1, inDirection, inV3, inV4, outSubResult)
         outSubResult.length = 0;
     }
 
-    var lineLineSubResult = new Array();
+    var lineLineSubResult = [];
 
-    if (privateCollisionLineLine(inV1, inV1.add(inDirection), inV3, inV4, lineLineSubResult))
+    if (__collisionLineLine(inV1, inV1.add(inDirection), inV3, inV4, lineLineSubResult))
     {
         var r = lineLineSubResult['r']; // alias
         var s = lineLineSubResult['s']; // alias
@@ -215,8 +216,8 @@ function collisionRayShape(inV1,
 function collisionRayPolygon(inV1,
                              inDirection,
                              inPolygon,
-                             outSubResult)
-{
+                             outSubResult) {
+
     DEBUGCheckFirstArgumentsAreValids(arguments, 3);
     console.assert(inPolygon.type == "polygon");
 
@@ -234,7 +235,7 @@ function collisionRayPolygon(inV1,
     {
         vertex = inPolygon.vertices[i];
 
-        var raySegmentSubResult = new Array();
+        var raySegmentSubResult = [];
 
         if (collisionRaySegment(inV1, inDirection, lastVertex, vertex, raySegmentSubResult))
         {
@@ -287,12 +288,12 @@ function collisionRayCircle(inRayStart,
     var circlePosition = inCircle.position;
     var circleRadius = inCircle.radius;
 
-    var solutions = new Array();
+    var solutions = [];
     var isCollision = false;
 
     var rayEnd = inRayStart.add(inRayDirection);
 
-    var nbSolutions = privateCollisionLineCircle(inRayStart, rayEnd, circlePosition, circleRadius, solutions);
+    var nbSolutions = __collisionLineCircle(inRayStart, rayEnd, circlePosition, circleRadius, solutions);
 
     switch (nbSolutions)
     {
@@ -342,14 +343,102 @@ function collisionRayCircle(inRayStart,
 }
 
 ///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+function collisionSegmentCircle(inV1,
+                                inV2,
+                                inCircle)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 3);
+    console.assert(inCircle.type == "circle");
+
+    DEBUGAssertIsValid(inCircle.position);
+    DEBUGAssertIsValid(inCircle.radius);
+
+    if (collisionVertexCircle(inV1, inCircle) || collisionVertexCircle(inV2, inCircle))
+    {
+        return true;
+    }
+
+    var circlePosition = inCircle.position;
+    var circleRadius = inCircle.radius;
+
+    var solutions = [];
+
+    var nbSolutions = __collisionLineCircle(inV1, inV2, circlePosition, circleRadius, solutions);
+
+    var normSqV2V1 = inV2.sub(inV1).normSq();
+
+    switch (nbSolutions)
+    {
+        case 2:
+            var normSqV1S2 = solutions['s2'].sub(inV2).normSq();
+            var normSqV2S2 = solutions['s2'].sub(inV1).normSq();
+
+            if (normSqV1S2 < normSqV2V1 && normSqV2S2 < normSqV2V1)
+            {
+                return true;
+            }
+
+        case 1:
+            var normSqV1S1 = solutions['s1'].sub(inV2).normSq();
+            var normSqV2S1 = solutions['s1'].sub(inV1).normSq();
+
+            if (normSqV1S1 < normSqV2V1 && normSqV2S1 < normSqV2V1)
+            {
+                return true;
+            }
+
+            break;
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+function collisionShapeShape(inShape1, inShape2)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 2);
+
+    if (inShape1.type == "polygon" && inShape2.type == "polygon")
+    {
+        return collisionPolygonPolygon(inShape1, inShape2);
+    }
+    else if (inShape1.type == "polygon" && inShape2.type == "circle")
+    {
+        return collisionPolygonCircle(inShape1, inShape2);
+    }
+    else if (inShape1.type == "circle" && inShape2.type == "polygon")
+    {
+        return collisionPolygonCircle(inShape2, inShape1);
+    }
+    else if (inShape1.type == "circle" && inShape2.type == "circle")
+    {
+        return collisionCircleCircle(inShape1, inShape2);
+    }
+    else
+    {
+        console.error("Collision " + inShape1.type + " / " + inShape2.type + " not handled");
+        return false;
+    }
+}
+
+///////////////////////////////////////////////////////////////
 ///@warning Assume convex polygon
-///@warning If 2 polygons are collided : At least 1 vertex is IN the ther polygon (false)
+///@warning If 2 polygons are collided : At least 1 vertex is IN the the polygon (false)
 ///////////////////////////////////////////////////////////////
 function collisionPolygonPolygon(inPolygon1, inPolygon2)
 {
     DEBUGCheckArgumentsAreValids(arguments, 2);
     console.assert(inPolygon1.type == "polygon");
     console.assert(inPolygon2.type == "polygon");
+
+    var vectorBsphereToBsphere = inPolygon1.bsphereCenter.sub(inPolygon2.bsphereCenter);
+    var sumRadius = inPolygon1.bsphereRadius + inPolygon2.bsphereRadius;
+    if (vectorBsphereToBsphere.normSq() > sumRadius * sumRadius)
+    {
+        return false;
+    }
 
     var nbVertices1 = inPolygon1.vertices.length;
     var vertex1;
@@ -380,7 +469,49 @@ function collisionPolygonPolygon(inPolygon1, inPolygon2)
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-function privateCollisionLineCircle(inVertex1, inVertex2,
+function collisionPolygonCircle(inPolygon, inCircle)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 2);
+    console.assert(inPolygon.type === "polygon");
+    console.assert(inCircle.type  === "circle");
+
+    var vectorBsphereToCircle = inPolygon.bsphereCenter.sub(inCircle.bsphereCenter);
+    var sumRadius = inPolygon.bsphereRadius + inCircle.bsphereRadius;
+    if (vectorBsphereToCircle.normSq() > sumRadius * sumRadius)
+    {
+        return false;
+    }
+
+    var lastVertex = inPolygon.vertices[inPolygon.vertices.length - 1];
+    for (var idxVertices = 0; idxVertices < inPolygon.vertices.length - 1; idxVertices++)
+    {
+        var vertex = inPolygon.vertices[idxVertices];
+
+        if (collisionSegmentCircle(vertex, lastVertex, inCircle))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+function collisionCircleCircle(inCircle1, inCircle2)
+{
+    DEBUGCheckArgumentsAreValids(arguments, 2);
+    console.assert(inCircle1.type == "circle");
+    console.assert(inCircle2.type == "circle");
+
+    var vectorCircleToCircle = inCircle1.bsphereCenter.sub(inCircle2.bsphereCenter);
+    var sumRadius = inCircle1.bsphereRadius + inCircle2.bsphereRadius;
+    return vectorCircleToCircle.normSq() <= sumRadius * sumRadius;
+}
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+function __collisionLineCircle(inVertex1, inVertex2,
                                     inCirclePosition, inCircleRadius,
                                     outSolutions)
 {
@@ -427,7 +558,7 @@ function privateCollisionLineCircle(inVertex1, inVertex2,
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-function privateCollisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
+function __collisionLineLine(inV1, inV2, inV3, inV4, outSubResult)
 {
     DEBUGCheckFirstArgumentsAreValids(arguments, 4);
 

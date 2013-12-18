@@ -36,7 +36,7 @@ Laser.prototype.generateBeams = function(outBeams)
     var beamDirection = new Vector2D(0, 1);
     beamDirection = beamDirection.rotate(this.shape.angle);
 
-    beamStart = beamStart.add(beamDirection.multiply(gMathEpsilon));
+    beamStart = beamStart.add(beamDirection.multiply(g.mathEpsilon));
 
     var refractiveIndex = getRefractiveIndex(beamStart);
     if (refractiveIndex)
@@ -55,16 +55,16 @@ Laser.prototype.draw = function()
 {
     console.log("Draw " + this.toString());
 
-    gCtx.save();
-    gCtx.translate(this.shape.position.x, this.shape.position.y);
-    gCtx.rotate(this.shape.angle);
+    g.ctx.save();
+    g.ctx.translate(this.shape.position.x, this.shape.position.y);
+    g.ctx.rotate(this.shape.angle);
 
     if (this.movingInLauncherBar)
     {
-        gCtx.globalAlpha = 0.5;
+        g.ctx.globalAlpha = 0.5;
     }
 
     this.enableShadow();
-    gCtx.drawImage(gImgLaser, -this.width / 2, -this.height / 2, this.width, this.height);
-    gCtx.restore();
+    g.ctx.drawImage(gImgLaser, -this.width / 2, -this.height / 2, this.width, this.height);
+    g.ctx.restore();
 }

@@ -1,6 +1,4 @@
 // Globals :
-var gCanvas;
-var gCtx;
 
 var gItems = new Array();
 var gLauncherItems = new Array();
@@ -14,11 +12,11 @@ var gFgColor;
 var gBeamColor;
 var gTransparentColor;
 
-var gCanvasTopLeftCorner;
-var gCanvasBottomLeftCorner;
-var gCanvasTopRightCorner;
-var gCanvasBottomRightCorner;
-var gCanvasPolygon;
+g.canvasTopLeftCorner = undefined;
+g.canvasBottomLeftCorner = undefined;
+g.canvasTopRightCorner = undefined;
+g.canvasBottomRightCorner = undefined;
+g.canvasPolygon = undefined;
 
 var gDrawingAreaTopLeftCorner;
 var gDrawingAreaBottomLeftCorner;
@@ -64,7 +62,7 @@ function mainDraw()
 {
     console.time("[mainDraw]");
 
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    g.ctx.clearRect(0, 0, g.canvas.width, g.canvas.height);
 
     var nbItems = gItems.length;
 
@@ -145,18 +143,18 @@ function mainDraw()
     }
     console.groupEnd();
 
-    gCtx.save();
-    gCtx.beginPath();
-    gCtx.moveTo(gDrawingAreaBottomRightCorner.x, gDrawingAreaBottomRightCorner.y);
-    gCtx.lineTo(gDrawingAreaBottomLeftCorner.x,  gDrawingAreaBottomLeftCorner.y);
-    gCtx.lineWidth = 1;
-    gCtx.shadowColor = '#999';
-    gCtx.shadowBlur = 2;
-    gCtx.shadowOffsetX = 0;
-    gCtx.shadowOffsetY = 3;
-    gCtx.strokeStyle = gFgColor;
-    gCtx.stroke();
-    gCtx.restore();
+    g.ctx.save();
+    g.ctx.beginPath();
+    g.ctx.moveTo(gDrawingAreaBottomRightCorner.x, gDrawingAreaBottomRightCorner.y);
+    g.ctx.lineTo(gDrawingAreaBottomLeftCorner.x,  gDrawingAreaBottomLeftCorner.y);
+    g.ctx.lineWidth = 1;
+    g.ctx.shadowColor = '#999';
+    g.ctx.shadowBlur = 2;
+    g.ctx.shadowOffsetX = 0;
+    g.ctx.shadowOffsetY = 3;
+    g.ctx.strokeStyle = gFgColor;
+    g.ctx.stroke();
+    g.ctx.restore();
 
     console.timeEnd("[mainDraw]");
 }
@@ -165,7 +163,7 @@ function mainDraw()
 ////////////////////////////////////////////////////////////////////////
 function init(inCanvas)
 {
-    gCanvas = inCanvas;
+    g.canvas = inCanvas;
 
     var launcherBarSize = 100;
 
@@ -173,64 +171,64 @@ function init(inCanvas)
 
     var mouseWheelEvtName = (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"
 
-    if (gCanvas.attachEvent) //if IE (and Opera depending on user setting)
+    if (g.canvas.attachEvent) //if IE (and Opera depending on user setting)
     {
-        gCanvas.attachEvent("onmousedown", onMouseDown);
-        gCanvas.attachEvent("onmouseup",   onMouseUp);
-        gCanvas.attachEvent("onmousemove", onMouseMove);
+        g.canvas.attachEvent("onmousedown", onMouseDown);
+        g.canvas.attachEvent("onmouseup",   onMouseUp);
+        g.canvas.attachEvent("onmousemove", onMouseMove);
         document.attachEvent("onkeydown",  onKeyDown);
-        gCanvas.attachEvent("on" + mouseWheelEvtName, onMouseWheel)
+        g.canvas.attachEvent("on" + mouseWheelEvtName, onMouseWheel)
     }
-    else if (gCanvas.addEventListener) //WC3 browsers
+    else if (g.canvas.addEventListener) //WC3 browsers
     {
-        gCanvas.addEventListener("mousedown", onMouseDown, false);
-        gCanvas.addEventListener("mouseup",   onMouseUp,   false);
-        gCanvas.addEventListener("mousemove", onMouseMove, false);
+        g.canvas.addEventListener("mousedown", onMouseDown, false);
+        g.canvas.addEventListener("mouseup",   onMouseUp,   false);
+        g.canvas.addEventListener("mousemove", onMouseMove, false);
         document.addEventListener("keydown",  onKeyDown,   false);
-        gCanvas.addEventListener(mouseWheelEvtName, onMouseWheel, false)
+        g.canvas.addEventListener(mouseWheelEvtName, onMouseWheel, false)
     }
 
     gDrawingAreaTopLeftCorner     = new Vector2D(0, 0);
-    gDrawingAreaTopRightCorner    = new Vector2D(gCanvas.width, 0);
-    gDrawingAreaBottomRightCorner = new Vector2D(gCanvas.width, gCanvas.height - launcherBarSize);
-    gDrawingAreaBottomLeftCorner  = new Vector2D(0, gCanvas.height - launcherBarSize);
+    gDrawingAreaTopRightCorner    = new Vector2D(g.canvas.width, 0);
+    gDrawingAreaBottomRightCorner = new Vector2D(g.canvas.width, g.canvas.height - launcherBarSize);
+    gDrawingAreaBottomLeftCorner  = new Vector2D(0, g.canvas.height - launcherBarSize);
     gDrawingAreaPolygon           = new Polygon(new Array(gDrawingAreaTopLeftCorner,
                                                           gDrawingAreaTopRightCorner,
                                                           gDrawingAreaBottomRightCorner,
                                                           gDrawingAreaBottomLeftCorner));
 
-    gLauncherAreaTopLeftCorner     = new Vector2D(0, gCanvas.height - launcherBarSize);
-    gLauncherAreaTopRightCorner    = new Vector2D(gCanvas.width, gCanvas.height - launcherBarSize);
-    gLauncherAreaBottomRightCorner = new Vector2D(gCanvas.width, gCanvas.height);
-    gLauncherAreaBottomLeftCorner  = new Vector2D(0, gCanvas.height);
+    gLauncherAreaTopLeftCorner     = new Vector2D(0, g.canvas.height - launcherBarSize);
+    gLauncherAreaTopRightCorner    = new Vector2D(g.canvas.width, g.canvas.height - launcherBarSize);
+    gLauncherAreaBottomRightCorner = new Vector2D(g.canvas.width, g.canvas.height);
+    gLauncherAreaBottomLeftCorner  = new Vector2D(0, g.canvas.height);
     gLauncherAreaPolygon           = new Polygon(new Array(gLauncherAreaTopLeftCorner,
                                                            gLauncherAreaTopRightCorner,
                                                            gLauncherAreaBottomRightCorner,
                                                            gLauncherAreaBottomLeftCorner));
 
-    gCanvasTopLeftCorner     = new Vector2D(0, 0);
-    gCanvasTopRightCorner    = new Vector2D(gCanvas.width, 0);
-    gCanvasBottomRightCorner = new Vector2D(gCanvas.width, gCanvas.height);
-    gCanvasBottomLeftCorner  = new Vector2D(0, gCanvas.height);
-    gCanvasPolygon           = new Polygon(new Array(gCanvasTopLeftCorner,
-                                                     gCanvasTopRightCorner,
-                                                     gCanvasBottomRightCorner,
-                                                     gCanvasBottomLeftCorner));
+    g.canvasTopLeftCorner     = new Vector2D(0, 0);
+    g.canvasTopRightCorner    = new Vector2D(g.canvas.width, 0);
+    g.canvasBottomRightCorner = new Vector2D(g.canvas.width, g.canvas.height);
+    g.canvasBottomLeftCorner  = new Vector2D(0, g.canvas.height);
+    g.canvasPolygon           = new Polygon(new Array(g.canvasTopLeftCorner,
+                                                     g.canvasTopRightCorner,
+                                                     g.canvasBottomRightCorner,
+                                                     g.canvasBottomLeftCorner));
 
-    gCtx = createContext(gCanvas);
+    g.ctx = createContext(g.canvas);
 
     var laser = new Laser();
     laser.rotate(Math.PI);
-    laser.moveTo(new Vector2D(gCanvas.width / 4, 3 * (gCanvas.height - launcherBarSize) / 4));
+    laser.moveTo(new Vector2D(g.canvas.width / 4, 3 * (g.canvas.height - launcherBarSize) / 4));
     gItems.push(laser);
 
     var circleGlass = new Glass("circle");
-    circleGlass.moveTo(new Vector2D(gCanvas.width / 4 + circleGlass.shape.radius - 0.5, (gCanvas.height - launcherBarSize) / 4));
+    circleGlass.moveTo(new Vector2D(g.canvas.width / 4 + circleGlass.shape.radius - 0.5, (g.canvas.height - launcherBarSize) / 4));
     gItems.push(circleGlass);
 
     var squareMirror = new Mirror("square");
     squareMirror.rotate(7 * Math.PI / 8);
-    squareMirror.moveTo(new Vector2D(3 * gCanvas.width / 4, (gCanvas.height - launcherBarSize) / 4));
+    squareMirror.moveTo(new Vector2D(3 * g.canvas.width / 4, (g.canvas.height - launcherBarSize) / 4));
     gItems.push(squareMirror);
 
     var laser = new Laser();
@@ -249,7 +247,7 @@ function init(inCanvas)
     var circleGlass = new Glass("circle");
     gLauncherItems.push(circleGlass);
 
-    var widthOfLauncherItemPlace = gCanvas.width / gLauncherItems.length;
+    var widthOfLauncherItemPlace = g.canvas.width / gLauncherItems.length;
 
     var nbLauncherItems = gLauncherItems.length;
     {
@@ -284,7 +282,7 @@ function setBeamColor(inR, inG, inB)
         gTransparentColor = "rgba(255, 255, 255, 0.25)";
     }
 
-    gCanvas.style.background = gBgColor;
+    g.canvas.style.background = gBgColor;
 
     document.activeElement.blur(); // Remove Focus of curent element focused
 

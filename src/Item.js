@@ -31,45 +31,45 @@ Item.prototype.isTransparent = function()
 ///////////////////////////////////////////////////////////////
 Item.prototype.drawTranslateIcon = function()
 {
-    gCtx.save();
+    g.ctx.save();
 
     var radius = 4;
     var offset = 3;
 
-    gCtx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
+    g.ctx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
                    this.shape.bsphereCenter.y - 0.75 * this.shape.bsphereRadius - offset);
 
-    gCtx.beginPath();
-    gCtx.moveTo(-radius, 0);
-    gCtx.lineTo( radius, 0);
-    gCtx.moveTo(0, -radius);
-    gCtx.lineTo(0,  radius);
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = gFgColor;
-    gCtx.stroke();
+    g.ctx.beginPath();
+    g.ctx.moveTo(-radius, 0);
+    g.ctx.lineTo( radius, 0);
+    g.ctx.moveTo(0, -radius);
+    g.ctx.lineTo(0,  radius);
+    g.ctx.lineWidth = 2;
+    g.ctx.strokeStyle = gFgColor;
+    g.ctx.stroke();
 
-    gCtx.restore();
+    g.ctx.restore();
 }
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 Item.prototype.drawRotationIcon = function()
 {
-    gCtx.save();
+    g.ctx.save();
 
     var radius = 3;
     var offset = 3;
 
-    gCtx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
+    g.ctx.translate(this.shape.bsphereCenter.x - 0.75 * this.shape.bsphereRadius - offset,
                    this.shape.bsphereCenter.y - 0.75 * this.shape.bsphereRadius - offset);
 
-    gCtx.beginPath();
-    gCtx.arc(0, 0, radius, 0, 2 * Math.PI, false);
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = gFgColor;
-    gCtx.stroke();
+    g.ctx.beginPath();
+    g.ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
+    g.ctx.lineWidth = 2;
+    g.ctx.strokeStyle = gFgColor;
+    g.ctx.stroke();
 
-    gCtx.restore();
+    g.ctx.restore();
 }
 
 ///////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ Item.prototype.moveTo = function(inNewPosition)
 ///////////////////////////////////////////////////////////////
 Item.prototype.canRotate = function()
 {
-    return this.shape.rotate;
+    return !this.shape.invariantRotation;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -138,10 +138,10 @@ Item.prototype.scale = function(inRatio)
 ///////////////////////////////////////////////////////////////
 Item.prototype.enableShadow = function()
 {
-    gCtx.shadowColor = '#999';
-    gCtx.shadowBlur = 4;
-    gCtx.shadowOffsetX = 2;
-    gCtx.shadowOffsetY = 2;
+    g.ctx.shadowColor = '#999';
+    g.ctx.shadowBlur = 4;
+    g.ctx.shadowOffsetX = 2;
+    g.ctx.shadowOffsetY = 2;
 }
 
 ///////////////////////////////////////////////////////////////

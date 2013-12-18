@@ -1,6 +1,8 @@
+"use strict";
+
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-function getWidth()
+function getWindowWidth()
 {
     var x = 0;
     if (self.innerHeight)
@@ -20,7 +22,7 @@ function getWidth()
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-function getHeight()
+function getWindowHeight()
 {
     var y = 0;
     if (self.innerHeight)
@@ -40,23 +42,23 @@ function getHeight()
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-function getPosition(event)
+function getMousePosition(inEvent)
 {
     var mousePos = new Vector2D(0, 0);
 
-    if (event.x != undefined && event.y != undefined)
+    if (inEvent.x != undefined && inEvent.y != undefined)
     {
-        mousePos.x = event.x - window.pageXOffset;
-        mousePos.y = event.y + window.pageYOffset;
+        mousePos.x = inEvent.x - window.pageXOffset;
+        mousePos.y = inEvent.y + window.pageYOffset;
     }
     else
     {
         // Firefox method to get the position
-        mousePos.x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        mousePos.y = event.clientY + document.body.scrollTop  + document.documentElement.scrollTop;
+        mousePos.x = inEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        mousePos.y = inEvent.clientY + document.body.scrollTop  + document.documentElement.scrollTop;
     }
-    mousePos.x -= gCanvas.offsetLeft;
-    mousePos.y -= gCanvas.offsetTop;
+    mousePos.x -= g.canvas.offsetLeft;
+    mousePos.y -= g.canvas.offsetTop;
 
     return mousePos;
 }

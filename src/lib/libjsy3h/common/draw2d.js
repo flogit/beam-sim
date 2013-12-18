@@ -1,3 +1,5 @@
+"use strict";
+
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
 function drawShapePath(inShape)
@@ -6,7 +8,7 @@ function drawShapePath(inShape)
 
     if (inShape.type == "polygon")
     {
-        gCtx.beginPath();
+        g.ctx.beginPath();
         var nbVertices = inShape.vertices.length;
         var vertex;
         for (var i = 0; i < nbVertices; i++)
@@ -14,20 +16,20 @@ function drawShapePath(inShape)
             vertex = inShape.vertices[i];
             if (i == 0)
             {
-                gCtx.moveTo(vertex.x, vertex.y);
+                g.ctx.moveTo(vertex.x, vertex.y);
             }
             else
             {
-                gCtx.lineTo(vertex.x, vertex.y);
+                g.ctx.lineTo(vertex.x, vertex.y);
             }
         }
-        gCtx.closePath();
+        g.ctx.closePath();
     }
     else if (inShape.type == "circle")
     {
-        gCtx.beginPath();
-        gCtx.arc(inShape.position.x, inShape.position.y, inShape.radius, 0, Math.PI * 2, true);
-        gCtx.closePath();
+        g.ctx.beginPath();
+        g.ctx.arc(inShape.position.x, inShape.position.y, inShape.radius, 0, Math.PI * 2, true);
+        g.ctx.closePath();
     }
     else
     {
@@ -39,12 +41,10 @@ function drawShapePath(inShape)
 ///////////////////////////////////////////////////////////////
 function drawShape(inShape)
 {
-    gCtx.save();
     drawShapePath(inShape);
-    gCtx.fillStyle = "rgba(255, 0, 0, 0.5)";
-    gCtx.fill();
+    g.ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+    g.ctx.fill();
     drawShapePath(inShape);
-    gCtx.strokeStyle = "rgb(0, 255, 0)";
-    gCtx.stroke();
-    gCtx.restore();
+    g.ctx.strokeStyle = "rgb(0, 255, 0)";
+    g.ctx.stroke();
 }

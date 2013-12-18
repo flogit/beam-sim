@@ -82,20 +82,20 @@ Beam.prototype.draw = function()
     {
         console.log("Draw beams from " + this.start + " to " + this.end + " with refractive index " + this.refractiveIndex);
 
-        gCtx.save();
+        g.ctx.save();
         {
-            gCtx.beginPath();
-            gCtx.moveTo(this.start.x, this.start.y);
-            gCtx.lineTo(this.end.x, this.end.y);
-            gCtx.lineWidth = this.size;
-            gCtx.shadowColor = '#999';
-            gCtx.shadowBlur = this.size;
-            gCtx.shadowOffsetX = this.size / 2;
-            gCtx.shadowOffsetY = this.size/ 2;
-            gCtx.strokeStyle = gBeamColor;
-            gCtx.stroke();
+            g.ctx.beginPath();
+            g.ctx.moveTo(this.start.x, this.start.y);
+            g.ctx.lineTo(this.end.x, this.end.y);
+            g.ctx.lineWidth = this.size;
+            g.ctx.shadowColor = '#999';
+            g.ctx.shadowBlur = this.size;
+            g.ctx.shadowOffsetX = this.size / 2;
+            g.ctx.shadowOffsetY = this.size/ 2;
+            g.ctx.strokeStyle = gBeamColor;
+            g.ctx.stroke();
         }
-        gCtx.restore();
+        g.ctx.restore();
     }
     else
     {

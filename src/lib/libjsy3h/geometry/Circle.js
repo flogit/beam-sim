@@ -1,6 +1,8 @@
-///////////////////////////////////////////////////////////////
-/// Constructor
-///////////////////////////////////////////////////////////////
+"use strict";
+
+/**
+ * @constructor
+ */
 function Circle(inRadius)
 {
     DEBUGCheckArgumentsAreValids(arguments, 1);
@@ -12,6 +14,8 @@ function Circle(inRadius)
 
     this.radius = inRadius;
     this.bsphereRadius = inRadius;
+
+    this.invariantRotation = true;
 }
 
 ///////////////////////////////////////////////////////////////

@@ -17,7 +17,7 @@ function onMouseDown(inRawEvent)
     gOldSelectedItemIdx = gSelectedItemIdx;
     gSelectedItemIdx = undefined;
 
-    var mousePos = getPosition(evt);
+    var mousePos = getMousePosition(evt);
 
     var nbItems = gItems.length;
 
@@ -123,7 +123,7 @@ function onMouseMove(inRawEvent)
         {
             gEventItemTranslated = true;
 
-            var mousePos = getPosition(evt);
+            var mousePos = getMousePosition(evt);
             var mouseOffset = mousePos.sub(gOldMousePage);
             gOldMousePage = mousePos;
 
@@ -203,7 +203,7 @@ function onMouseUp()
             else
             {
                 gItems[gSelectedItemIdx].movingInLauncherBar = false;
-                gItems[gSelectedItemIdx].moveTo(new Vector2D(gCanvas.width / 2, gDrawingAreaBottomRightCorner.y / 2));
+                gItems[gSelectedItemIdx].moveTo(new Vector2D(g.canvas.width / 2, gDrawingAreaBottomRightCorner.y / 2));
                 gSelectedItemMode = "translation";
             }
         }
@@ -225,9 +225,9 @@ function onMouseWheel(inRawEvent)
 
     var selectedItemIdx;
 
-    var canvasRect = gCanvas.getBoundingClientRect();
+    var canvasRect = g.canvas.getBoundingClientRect();
 
-    var mousePos = getPosition(evt);
+    var mousePos = getMousePosition(evt);
 
     if (typeof gSelectedItemIdx !== 'undefined')
     {

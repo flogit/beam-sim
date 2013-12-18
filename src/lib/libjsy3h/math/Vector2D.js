@@ -1,7 +1,10 @@
+"use strict";
+
 // Use this inspiration ? http://evanw.github.io/lightgl.js/docs/vector.html
 
-///////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
+/**
+ * @constructor
+ */
 function Vector2D(x, y)
 {
     DEBUGCheckArgumentsAreValids(arguments, 2);

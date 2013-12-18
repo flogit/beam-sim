@@ -46,16 +46,16 @@ Glass.prototype.draw = function()
 {
     console.log("Draw " + this.toString());
 
-    gCtx.save();
+    g.ctx.save();
     if (this.movingInLauncherBar)
     {
-        gCtx.globalAlpha = 0.5;
+        g.ctx.globalAlpha = 0.5;
     }
     drawShapePath(this.shape);
-    gCtx.fillStyle = gTransparentColor;
+    g.ctx.fillStyle = gTransparentColor;
     this.enableShadow();
-    gCtx.fill();
-    gCtx.restore();
+    g.ctx.fill();
+    g.ctx.restore();
 }
 
 ///////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ Glass.prototype.handleBeamCollision = function(outBeams,
 
     var theta1 = Math.acos(costheta1);
 
-    var outputBeamStart = inCollidedPoint.add(inInputRayDirection.multiply(gMathEpsilon));
+    var outputBeamStart = inCollidedPoint.add(inInputRayDirection.multiply(g.mathEpsilon));
 
     var refractiveIndex2 = getRefractiveIndex(outputBeamStart);
 
@@ -114,7 +114,7 @@ Glass.prototype.handleBeamCollision = function(outBeams,
         var proj = inNormal.multiply(outputRayDirection.dot(inNormal));
 
         outputRayDirection = outputRayDirection.add(proj.sub(outputRayDirection).multiply(2));
-        var outputBeamStart = inCollidedPoint.add(outputRayDirection.multiply(gMathEpsilon));
+        var outputBeamStart = inCollidedPoint.add(outputRayDirection.multiply(g.mathEpsilon));
 
         var beam = new Beam(outBeams, outputBeamStart, outputRayDirection.normalize(), inInputRefractiveIndex1, inBeamSize);
     }

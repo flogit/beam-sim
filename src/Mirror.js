@@ -39,22 +39,22 @@ Mirror.prototype.draw = function()
 
     //var alpha = this.movingInLauncherBar ? 0.5 : 1.0;
 
-    gCtx.save();
+    g.ctx.save();
 
     if (this.movingInLauncherBar)
     {
-        gCtx.globalAlpha = 0.5;
+        g.ctx.globalAlpha = 0.5;
     }
 
     drawShapePath(this.shape);
-    gCtx.fillStyle = "rgb(107, 60, 26)";
-    gCtx.save();
+    g.ctx.fillStyle = "rgb(107, 60, 26)";
+    g.ctx.save();
     this.enableShadow();
-    gCtx.fill();
-    gCtx.restore();
-    gCtx.strokeStyle = "rgb(100, 100, 100)";
-    gCtx.stroke();
-    gCtx.restore();
+    g.ctx.fill();
+    g.ctx.restore();
+    g.ctx.strokeStyle = "rgb(100, 100, 100)";
+    g.ctx.stroke();
+    g.ctx.restore();
 }
 
 ///////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ Mirror.prototype.handleBeamCollision = function(outBeams,
     var proj = inNormal.multiply(outputRayDirection.dot(inNormal));
 
     outputRayDirection = outputRayDirection.add(proj.sub(outputRayDirection).multiply(2));
-    var outputRayStart = inCollidedPoint.add(outputRayDirection.multiply(gMathEpsilon));
+    var outputRayStart = inCollidedPoint.add(outputRayDirection.multiply(g.mathEpsilon));
 
     var beam = new Beam(outBeams, outputRayStart, outputRayDirection.normalize(), inInputRefractiveIndex, inBeamSize);
 }

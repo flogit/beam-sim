@@ -1,0 +1,13 @@
+#!/bin/bash
+
+OS="$(uname)"
+
+if [ $OS == "Linux" ]; then
+	find . -name "*.js" -exec sed -i "s/  DEBUG/  \/\/DEBUG/g" {} \;
+	find . -name "*.js" -exec sed -i "s/  console/  \/\/console/g" {} \;
+fi
+
+if [ $OS == "Darwin" ]; then
+	find . -name "*.js" -exec sed -i "" "s/  DEBUG/  \/\/DEBUG/g" {} \;
+	find . -name "*.js" -exec sed -i "" "s/  console/  \/\/console/g" {} \;
+fi
